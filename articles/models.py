@@ -12,6 +12,8 @@ STATUS_CHOICES = (
 class Category(models.Model):
     name = models.CharField(max_length=50)
     description = models.TextField(blank=True, null=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    modified_at = models.DateTimeField(auto_now=True)
 
     class Meta:
         verbose_name_plural = "categories"
@@ -28,8 +30,9 @@ class Article(models.Model):
     video = models.URLField(blank=True)
     title = models.CharField(max_length=250)
     text = models.TextField()
-    id_reply = models.IntegerField(blank=True, null=True )
+    id_reply = models.IntegerField(blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
+    modified_at = models.DateTimeField(auto_now=True)
     categories = models.ManyToManyField(Category, related_name="articles")
 
     def __str__(self):
@@ -48,6 +51,8 @@ class Article(models.Model):
 class Favorite(models.Model):
     id_user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="favorites")
     id_article = models.ForeignKey(Article, on_delete=models.CASCADE, related_name="favorites")
+    created_at = models.DateTimeField(auto_now_add=True)
+    modified_at = models.DateTimeField(auto_now=True)
 
     class Meta:
         verbose_name_plural = "favorites"
@@ -61,6 +66,9 @@ class Comment(models.Model):
     id_user_comment = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="comment")
     pub_date = models.DateField(default=datetime.date.today)
     text = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True)
+    modified_at = models.DateTimeField(auto_now=True)
+
     class Meta:
         verbose_name_plural = "comments"
 
@@ -72,6 +80,9 @@ class Underline(models.Model):
     id_user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="underline")
     id_article = models.ForeignKey(Article, on_delete=models.CASCADE, related_name="underline")
     marked_text = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True)
+    modified_at = models.DateTimeField(auto_now=True)
+
     class Meta:
         verbose_name_plural = "underlines"
 
