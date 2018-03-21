@@ -28,6 +28,7 @@ class Article(models.Model):
     video = models.URLField(blank=True)
     title = models.CharField(max_length=250)
     text = models.TextField()
+    id_reply = models.IntegerField(blank=True, null=True )
     created_at = models.DateTimeField(auto_now_add=True)
     categories = models.ManyToManyField(Category, related_name="articles")
 
