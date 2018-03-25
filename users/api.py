@@ -1,16 +1,24 @@
-from rest_framework import status
-from rest_framework.response import Response
-from rest_framework.views import APIView
 
+from rest_framework.generics import CreateAPIView, UpdateAPIView, DestroyAPIView
+
+from users.models import User
 from users.serializers import UserSerializer
 
 
-class UserApi(APIView):
+class UserCreateAPI(CreateAPIView):
 
-    def post(self, request):
-        serializer = UserSerializer(data=request.data)
-        if serializer.is_valid():
-            user = serializer.save()
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
-        else:
-            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
+
+
+class UserUpdateAPI (UpdateAPIView):
+
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
+
+
+class UserDeleteAPI (DestroyAPIView):
+
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
+
