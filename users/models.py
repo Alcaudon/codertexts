@@ -4,12 +4,12 @@ from django.contrib.auth.models import AbstractUser
 
 
 class User(AbstractUser):
-    nickname = models.CharField(max_length=25)
-    image = models.URLField(blank=True)
-    instagram_user = models.CharField(max_length=30, blank=True)
-    twitter_user = models.CharField(max_length=30, blank=True)
-    facebook_user = models.CharField(max_length=30, blank=True)
-    about_me = models.CharField(max_length=140, blank=True)
+    email = models.EmailField(unique=True)
+    image = models.URLField(blank=True, null=True)
+    instagram_user = models.CharField(max_length=30, blank=True, null=True)
+    twitter_user = models.CharField(max_length=30, blank=True, null=True)
+    facebook_user = models.CharField(max_length=30, blank=True, null=True)
+    about_me = models.CharField(max_length=140, blank=True, null=True)
 
 
 class Follower(models.Model):
