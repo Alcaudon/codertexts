@@ -1,5 +1,4 @@
 from rest_framework.generics import CreateAPIView, UpdateAPIView, DestroyAPIView
-from rest_framework.permissions import IsAuthenticated
 
 from users.models import User
 from users.permissions import UserPermissions
