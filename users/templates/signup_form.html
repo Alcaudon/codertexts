@@ -1,0 +1,24 @@
+{%  extends "base.html" %}
+{% block title %} Sign Up {% endblock %}
+
+{% block content %}
+
+<!-- Listado de posts-->
+    <div class="container">
+    <!-- Capa de signup -->
+    <div class="row ">
+        <div class="col-md-2">&nbsp;</div>
+        <div class="col-md-8 ">
+          <h3 class="entry__title">Formulario de registro</h3>
+
+          <form name="formulario" id="formulario" method="post" action="">
+              {%  csrf_token %}
+              {{ form.as_p }}
+                <button type="submit" class="submit btn--primary btn--large full-width">Alta</button>
+          </form> <!-- end form -->
+        </div>
+        <div class="col-md-2">&nbsp;</div>
+      </div>
+    </div>
+
+{% endblock %}
