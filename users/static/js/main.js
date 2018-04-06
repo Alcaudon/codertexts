@@ -19,6 +19,7 @@ var clBackToTop = function() {
     });
 };
 
+
 /*Mostrar popup de búsqueda*/
 
 var clSearch = function(nombreCapa, nombreBoton) {
@@ -95,4 +96,3 @@ $('#fecha').datepicker({
 //Ejecución de las funciones
 clBackToTop();
 clSearch('#capaBuscar', '.capa-buscador');
-

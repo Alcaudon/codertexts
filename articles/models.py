@@ -3,6 +3,9 @@ from django.core.exceptions import ValidationError
 from django.db import models
 import datetime
 
+from django.template.defaultfilters import slugify
+from django.urls import reverse
+
 STATUS_CHOICES = (
     ('finalizado','FINALIZADO'),
     ('borrador', 'BORRADOR'),
@@ -34,6 +37,17 @@ class Article(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     modified_at = models.DateTimeField(auto_now=True)
     categories = models.ManyToManyField(Category, related_name="articles")
+    slug = models.SlugField(max_length=250) #nuevo campo en el modelo para las URLs
+
+    def save(self, *args, **kwargs): # convertimos el 'title' en slug y lo guardamos en 'slug'
+        self.slug = slugify(self.title)
+        super().save(*args, **kwargs)
+
+    #def get_absolute_url(self):
+        #    kwargs = {'username': self.User.objects.get(id=id_user).username,
+        #          'title': self.slug
+        #          }
+    #return reverse('article_detail_page', kwargs=kwargs)
 
     def __str__(self):
         return self.pub_date.strftime('%m/%d/%Y') + " - " + self.title
