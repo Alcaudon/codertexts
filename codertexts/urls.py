@@ -2,7 +2,7 @@ from django.contrib import admin
 from django.urls import path
 
 from users.api import UserCreateAPI, UserUpdateAPI, UserDeleteAPI
-from articles.api import NewArticleAPI, GetAllArticlesAPI, GetAllArticlesByUserAPI, ActionArticleAPI
+from articles.api import NewArticleAPI, GetAllArticlesAPI, GetAllArticlesByUserAPI, ActionArticleAPI,GetAllCategoriesAPI
 from articles.views import home
 from users.views import LoginUserView
 
@@ -18,6 +18,8 @@ urlpatterns = [
 
     path('api/1.0/article/<int:pk>', ActionArticleAPI.as_view(), name="api_article_detail"),
     path('api/1.0/article/new/', NewArticleAPI.as_view(), name="api_new_article"),
-    path('api/1.0/articles/all/', GetAllArticlesAPI.as_view(), name="api_article_detail"),
+    path('api/1.0/articles/all/', GetAllArticlesAPI.as_view(), name="api_articles_all"),
     path('api/1.0/articles/user/<int:id_user>', GetAllArticlesByUserAPI.as_view(), name="api_new_article"),
+
+    path('api/1.0/categories/all/', GetAllCategoriesAPI.as_view(), name="api_categories_all")
 ]
