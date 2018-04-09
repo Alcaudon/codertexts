@@ -7,7 +7,7 @@ class UserSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = User
-        fields = '__all__'
+        fields = ['id', 'username', 'password', 'first_name', 'last_name', 'email', 'last_login']
 
     def validate_username(self, data):
         if self.instance is None and User.objects.filter(username=data).exists():
@@ -23,9 +23,12 @@ class UserSerializer(serializers.ModelSerializer):
             raise ValidationError("El correo de usuario está ya en uso.")
         return data
 
+
     def create(self, validated_data):
-        instance = User()
-        return self.update(instance, validated_data)
+        user = super(UserSerializer, self).create(validated_data)
+        user.set_password(validated_data.get('password'))
+        user.save()
+        return user
 
     def update(self, instance, validated_data):
         instance.first_name = validated_data.get("first_name")

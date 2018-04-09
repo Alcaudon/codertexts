@@ -9,6 +9,7 @@ class UserCreateAPI(CreateAPIView):
 
     queryset = User.objects.all()
     serializer_class = UserSerializer
+    permission_classes = [UserPermissions]
 
 
 class UserUpdateAPI (UpdateAPIView):
