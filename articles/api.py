@@ -2,7 +2,6 @@ from rest_framework.generics import CreateAPIView, RetrieveUpdateDestroyAPIView
 from rest_framework.generics import ListAPIView
 from articles.serializers import ArticlesSerializer
 from articles.models import Article
-from users.authentication import TokenAuthentication
 from users.permissions import UserPermissions
 from articles.models import Category
 from articles.serializers import CategoriesSerializer
@@ -25,7 +24,6 @@ class GetAllArticlesAPI(ListAPIView):
 
     queryset = Article.objects.all()
     serializer_class = ArticlesSerializer
-    authentication_classes = [TokenAuthentication]
 
 
 class GetAllArticlesByUserAPI(ListAPIView):
