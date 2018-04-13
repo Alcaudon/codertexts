@@ -125,6 +125,11 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
+STATICFILES_DIRS = (
+    os.path.join(BASE_DIR, 'articles/templates/angular'),
+    os.path.join(BASE_DIR, 'articles/static/images'),
+)
+
 
 # Mofification to extend user model
 
