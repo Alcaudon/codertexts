@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/2.0/ref/settings/
 """
 import os
+from django.utils.translation import ugettext_lazy as _
 
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
@@ -48,6 +49,7 @@ MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'django.middleware.locale.LocaleMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -109,6 +111,11 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/2.0/topics/i18n/
 
+LANGUAGES = (
+    ('en-us', _('Ingles')),
+    ('es-es', _('Español')),
+)
+
 LANGUAGE_CODE = 'es-es'
 
 TIME_ZONE = 'UTC'
@@ -158,3 +165,7 @@ CORS_ORIGIN_ALLOW_ALL = True
   #  'http://127.0.0.1:4200',
   #  'http://127.0.0.1:8000',
 # )
+
+LOCALE_PATHS = (
+ os.path.join(BASE_DIR, "locale"),
+)
