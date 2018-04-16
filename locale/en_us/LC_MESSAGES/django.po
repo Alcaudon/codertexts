@@ -18,12 +18,12 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 
 #: .\codertexts\settings.py:115
-msgid "Ingles"
-msgstr "English"
+msgid "en"
+msgstr "en"
 
 #: .\codertexts\settings.py:116
-msgid "Español"
-msgstr "Spanish"
+msgid "es"
+msgstr "es"
 
 #: .\users\templates\login.html:11
 msgid "Login de usuario"

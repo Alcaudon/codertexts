@@ -13,7 +13,6 @@
     <!-- Bootstrap core CSS -->
     <link rel="stylesheet" href="{% static "styles.bundle.css" %}">
   </head>
-
   <body>
 
     <!--Barra de navegación-->
@@ -32,62 +31,47 @@
           <li class="nav-item active">
             <a class="nav-link" href="{%  url "home_page" %}">{% trans 'Inicio' %} <span class="sr-only">(current)</span></a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Javascript</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Python</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">HTML/CSS</a>
-          </li>
+          {% for category in categories %}
+              <li class="nav-item">
+                <a class="nav-link" href="#">{{ category.name }}</a>
+              </li>
+          {% endfor %}
         </ul>
-          <div>
-              <form action="orderList" method="post">
-                  <select class="fa fa-user" name="order_list">
-                    <option value="0">Ordenar</option>
-                      <option value="1">Más antiguos: primeros</option>
-                    <option value="0">Más antiguos: últimos</option>
-                  </select>
-              </form>
-           </div>
 
-          <div class="texto-blanco">
-              <form action="{% url 'set_language' %}" method="post">
-                    {% csrf_token %}
-                    <input name="next" type="hidden" value="{{ redirect_to }}" />
-                    <select class="fa fa-user" name="language" onchange="cambio()">
-                        {% get_current_language as LANGUAGE_CODE %}
-                        {% get_available_languages as LANGUAGES %}
-                        {% for lang in LANGUAGES %}
-                            <option value="{{ lang.0 }}" {% if lang.0 == LANGUAGE_CODE %} selected="selected"{% endif %}>
-                                {{ lang.1 }}
-                            </option>
-                        {% endfor %}
-                    </select>
-                    <input type="submit" value="Go" id="go" hidden="True">
-              </form>
-          </div>
-
-
-          <div class="texto-blanco capa-buscador">
+          <div class="texto-gris capa-buscador">
           <i class="fa fa-search"></i>Buscar
          </div>
           {% if user.is_authenticated %}
-          <div class="texto-blanco capa-buscador">
-          <i class="fa fa-user"></i>Nuevo Post
-        </div>
-        <div class="texto-blanco">
-          <i class="fa fa-user"></i>Salir
-        </div>
-          {% else %}
-        <div class="texto-blanco">
-          <i class="fa fa-user"></i>Entrar
-        </div>
-          <div class="texto-blanco">
-              <i class="fa fa-user"></i><a href="{%  url "signup_page" %}">Unirse</a>
-        </div>
-          {% endif %}
+            <div class="texto-gris">
+              <i class="fa fa-user"></i>Nuevo Post
+            </div>
+            <div class="texto-gris">
+              <i class="fa fa-user"></i>Salir
+            </div>
+        {% else %}
+            <div class="texto-gris">
+              <i class="fa fa-user"></i><a href="{%  url "login_page" %}">Entrar</a>
+            </div>
+            <div class="texto-gris">
+                  <i class="fa fa-sign-in"></i><a href="{%  url "signup_page" %}">Unirse</a>
+            </div>
+        {% endif %}
+         <div style="margin-left: 10px">
+          {% get_current_language as LANGUAGE_CODE %}
+          {% get_available_languages as LANGUAGES %}
+          {% for lang in LANGUAGES %}
+                <a href="#" onclick="cambio('{{ lang.0 }}')" {% if lang.0 == LANGUAGE_CODE %} class="current"{% endif %}>
+                    <img width="30px" src="{% static "images/"|add:lang.1|add:".svg" %}" />
+                </a>
+          {% endfor %}
+
+          <form action="{% url 'set_language' %}" method="post" style="visibility: hidden">
+                {% csrf_token %}
+                <input name="next" type="hidden" value="{{ redirect_to }}" />
+                <input type="hidden" name="language" id="language" >
+                <input type="submit" value="Go" id="go" hidden="True">
+          </form>
+         </div>
       </div>
     </nav>
     <!--Fin barra navegación-->
@@ -106,10 +90,11 @@
 
                     <ul class="s-footer__linklist">
                         <li><a href="#0">Inicio</a></li>
-                        <li><a href="#0">Java</a></li>
-                        <li><a href="#0">Python</a></li>
-                        <li><a href="#0">Sobre nosotros</a></li>
-                        <li><a href="#0">Contacta</a></li>
+                      {% for category in categories %}
+                          <li>
+                            <a  href="#">{{ category.name }}</a>
+                          </li>
+                      {% endfor %}
                     </ul>
 
                 </div> <!-- end s-footer__sitelinks -->
@@ -167,8 +152,9 @@
     </body>
     <script src="{% static "scripts.bundle.js" %}"></script>
     <script>
-        function cambio() {
-           document.getElementById("go").click()
+        function cambio(valor) {
+           document.getElementById("language").value = valor;
+           document.getElementById("go").click();
         }
     </script>
 </html>

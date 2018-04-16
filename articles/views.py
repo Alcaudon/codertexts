@@ -2,8 +2,9 @@ from django.utils.datetime_safe import datetime
 from django.shortcuts import render, get_object_or_404
 from django.views.generic import ListView, DetailView
 
-from articles.models import Article
+from articles.models import Article, Category
 from users.models import User
+
 
 def orderList(request):
     answer = request.POST["order_list"]
@@ -16,12 +17,14 @@ def orderList(request):
 class HomeView(ListView):
     model = Article
     template_name = "home.html"
-    ordering = orderList
+    # limitamos a 10 el número de artículos en esta vista
+    queryset = Article.objects.filter(status='finalizado').filter(pub_date__lte=datetime.now())[:10]
 
-    def get_queryset(self):
-        queryset = Article.objects.filter(status='finalizado').filter(pub_date__lte=datetime.now())[:10] # limitamos a 10 el número de artículos en esta vista
-        return queryset
-        # artículos publicados, con fecha de publicación en el pasado y ordenadas de más reciernte a más antigua
+    def get_context_data(self, **kwargs):
+        context = super(HomeView, self).get_context_data(**kwargs)
+        context['categories'] = Category.objects.all()
+        return context
+
 
 class ArticleDetailView(DetailView):
     model = Article
