@@ -4,15 +4,16 @@ from articles.views import HomeView, ArticleDetailView
 from users.api import UserCreateAPI, UserUpdateAPI, UserDeleteAPI
 from articles.api import NewArticleAPI, GetAllArticlesAPI, GetAllArticlesByUserAPI, \
     ActionArticleAPI, GetAllCategoriesAPI
-from users.views import LoginUserView, signupView
+from users.views import LoginUserView, SignupView, LoginView, logout
 
 
 urlpatterns = [
     path('admin/', admin.site.urls),
 
     path('<str:username>/<slug:title>', ArticleDetailView.as_view(), name="article_detail_page"),
-    path('signup/', signupView.as_view(), name="signup_page"),
-    path('login/', signupView.as_view(), name="login_page"),
+    path('login/', LoginView.as_view(), name="login_page"),
+    path('signup/', SignupView.as_view(), name="signup_page"),
+    path('logout/', logout, name="logout_page"),
     path('', HomeView.as_view(), name="home_page"),
     path('i18n/', include('django.conf.urls.i18n')),
 

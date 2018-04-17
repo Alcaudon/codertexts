@@ -1,32 +1,26 @@
 {% extends "base.html" %}
-
+{% load i18n %}
 {% block head_title %} Login {% endblock %}
 
 {% block content %}
-    <h1>Login de usuario</h1>
     <div class="container">
         <div class="row ">
             <div class="col-md-4">&nbsp;</div>
-            <div class="col-md-4 text-center">
-                <h3 class="entry__title">{% trans 'Login de usuario'%}</h3>
-                <form name="formulario" id="formulario" method="post" action="">
+            <div class="col-md-4">
+                <h3 class="entry__title">{% trans 'Ingreso de usuario'%}</h3>
+                {%  if messages %}
+                    {% for message in messages %}
+                    <div class="alert alert-danger">
+                        {{message}}
+                    </div>
+                    {% endfor %}
+                {% endif %}
+                <form method="post" novalidate>
                     <fieldset>
-                        <div class="form-field">
-                            <input name="user" type="text" id="user" class="full-width" placeholder="Tu usuario"
-                                   value="">
-                        </div>
-                        <div class="form-field">
-                            <input name="password" type="password" id="password" class="full-width"
-                                   placeholder="Tu contraseña" value="">
-                            <span toggle="#password" class="fa fa-2x fa-fw fa-eye field-icon toggle-password 2x"></span>
-                        </div>
-                        <div class="etiqueta">
-                            <label class="etiqueta"><input type="checkbox" value="remember-me" id="recuerdame">&nbsp;Recuérdame</label>
-                        </div>
-                        <div class="etiqueta">
-                            <a href="#">¿Olvidaste tu contraseña?</a>
-                        </div>
-                        <button type="submit" class="submit btn--primary btn--large full-width">Entrar</button>
+                        {% csrf_token %}
+                        {{  form.as_p }}
+                        <br/>
+                        <button type="submit" class="submit btn--primary btn--large full-width" >{% trans 'Entrar' %}</button>
                     </fieldset>
                 </form>
             </div>

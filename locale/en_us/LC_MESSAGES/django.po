@@ -25,6 +25,9 @@ msgstr "en"
 msgid "es"
 msgstr "es"
 
-#: .\users\templates\login.html:11
+#: .\users\templates\login.html
 msgid "Login de usuario"
 msgstr "User Login"
+
+msgid "Entrar"
+msgstr "Login"
