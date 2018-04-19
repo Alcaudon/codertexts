@@ -1,4 +1,6 @@
 from django.contrib.auth import authenticate, login as django_login, logout as django_logout
+from django.http import HttpResponseRedirect
+from django.urls import reverse
 from rest_framework.views import APIView
 from django.contrib import messages
 
@@ -78,4 +80,6 @@ class LoginView(View):
 
 def logout(request):
     django_logout(request)
-    return redirect("home_page")
+    response = HttpResponseRedirect(reverse("home_page"))
+    response.delete_cookie('csrftoken')
+    return response

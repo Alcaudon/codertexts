@@ -1,3 +1,5 @@
+from django.utils.decorators import method_decorator
+from django.views.decorators.csrf import csrf_protect
 from rest_framework.generics import CreateAPIView, RetrieveUpdateDestroyAPIView
 from rest_framework.generics import ListAPIView
 from articles.serializers import ArticlesSerializer
@@ -7,6 +9,7 @@ from articles.models import Category
 from articles.serializers import CategoriesSerializer
 
 
+@method_decorator(csrf_protect, name='dispatch')
 class NewArticleAPI(CreateAPIView):
     queryset = Article.objects.all()
     serializer_class = ArticlesSerializer
@@ -20,6 +23,7 @@ class ActionArticleAPI(RetrieveUpdateDestroyAPIView):
     permission_classes = [UserPermissions]
 
 
+@method_decorator(csrf_protect, name='dispatch')
 class GetAllArticlesAPI(ListAPIView):
 
     queryset = Article.objects.all()

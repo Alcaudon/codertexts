@@ -35,3 +35,9 @@ class ArticleDetailView(DetailView):
         user_name = self.kwargs.get('username')
         return get_object_or_404(Article, id_user=User.objects.get(username=user_name).id, slug=self.kwargs.get('title'))
 
+
+def angular(request):
+    return render(request, "angular/index.html")
+
+
+

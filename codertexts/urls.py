@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django.urls import path, include
-from articles.views import HomeView, ArticleDetailView
+from articles.views import HomeView, ArticleDetailView, angular
 from users.api import UserCreateAPI, UserUpdateAPI, UserDeleteAPI
 from articles.api import NewArticleAPI, GetAllArticlesAPI, GetAllArticlesByUserAPI, \
     ActionArticleAPI, GetAllCategoriesAPI
@@ -15,6 +15,7 @@ urlpatterns = [
     path('signup/', SignupView.as_view(), name="signup_page"),
     path('logout/', logout, name="logout_page"),
     path('', HomeView.as_view(), name="home_page"),
+    path('private/', angular, name="angular_home"),
     path('i18n/', include('django.conf.urls.i18n')),
 
     # API URLs
