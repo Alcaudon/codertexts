@@ -5,10 +5,16 @@ from users.api import UserCreateAPI, UserUpdateAPI, UserDeleteAPI
 from articles.api import NewArticleAPI, GetAllArticlesAPI, GetAllArticlesByUserAPI, \
     ActionArticleAPI, GetAllCategoriesAPI
 from users.views import LoginUserView, SignupView, LoginView, logout
+from rest_framework_jwt.views import obtain_jwt_token, refresh_jwt_token, verify_jwt_token
 
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+
+   # Auth URLs
+    path('api/1.0/token-obtain/', obtain_jwt_token),
+    path('api/1.0/token-refresh/', refresh_jwt_token),
+    path('api/1.0/token-verify/', verify_jwt_token),
 
     path('<str:username>/<slug:title>', ArticleDetailView.as_view(), name="article_detail_page"),
     path('login/', LoginView.as_view(), name="login_page"),

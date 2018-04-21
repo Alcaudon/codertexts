@@ -9,6 +9,7 @@ https://docs.djangoproject.com/en/2.0/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/2.0/ref/settings/
 """
+import datetime
 import os
 from django.utils.translation import ugettext_lazy as _
 
@@ -38,11 +39,13 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    # Third party packages
+    'corsheaders',
+    'rest_framework',
+    'rest_auth',
+    # Own packages
     'articles',
     'users',
-    'rest_framework',
-    'rest_framework.authtoken',
-    'corsheaders'
 ]
 
 MIDDLEWARE = [
@@ -147,14 +150,25 @@ REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework_jwt.authentication.JSONWebTokenAuthentication',
         'rest_framework.authentication.SessionAuthentication',
-        'rest_framework.authentication.TokenAuthentication',
         'rest_framework.authentication.BasicAuthentication',
     ),
 }
+REST_USE_JWT = True
+
+ACCOUNT_USERNAME_REQUIRED = True
+
+OLD_PASSWORD_FIELD_ENABLED = True   # To use old_password on change password.
+LOGOUT_ON_PASSWORD_CHANGE = False   # To keep the user logged in after password change
+
 
 JWT_AUTH = {
-    'JWT_AUTH_HEADER_PREFIX': 'Token'
+    'JWT_AUTH_HEADER_PREFIX': 'Bearer',  # To change word JWT in Authorization header
+    'JWT_EXPIRATION_DELTA': datetime.timedelta(days=30),
+    'JWT_ALLOW_REFRESH': True,
+    'JWT_REFRESH_EXPIRATION_DELTA': datetime.timedelta(days=40),
+    'JWT_PAYLOAD_HANDLER': 'rest_framework_jwt.utils.jwt_payload_handler'
 }
+
 
 # Propiedades para evitar el problema de CORS
 
