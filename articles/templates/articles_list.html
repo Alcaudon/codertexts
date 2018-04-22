@@ -1,9 +1,10 @@
+{% load staticfiles%}
 {% for article in articles %}
 <article class="col-md-4">
     <div class="card">
         <div class="entry__thumb">
-            <a href="post-detail.html" class="entry__thumb-link">
-                <img src="./images/terrier.jpg" srcset="./images/terrier.jpg 1x, ./images/terrier.png 2x" alt="">
+            <a href="{%  url 'article_detail_page' username=article.id_user title=article.slug %}" class="entry__thumb-link" title="{{ article.title }}">
+                <img src="{{ article.image }}" alt="">
             </a>
         </div>
         <div class="card-block">
@@ -14,19 +15,29 @@
                     </div>
                     <h2 class="entry__title"><a href="{%  url 'article_detail_page' username=article.id_user title=article.slug %}" title="{{ article.title }}">{{ article.title }}</a></h2>
                     <div class="entry__author">
-                        by <a href="post-detail.html">{{ article.id_user.first_name }} {{ article.id_user.last_name }}</a>
+                        by <a href="{%  url 'user_articles_page' username=article.id_user %}">{{ article.id_user.first_name }} {{ article.id_user.last_name }}</a>
                     </div>
                 </div>
                 <div class="entry__excerpt">
                     <p>
-                        {{ article.text }}
+                        {{ article.text|truncatewords:5 }}
                     </p>
                 </div>
+                <div class="entry__excerpt">
+                    <a href="{%  url 'article_detail_page' username=article.id_user title=article.slug %}#comentarios">
+                        {% for key, value in numofcomments.items %}
+                            {% if key == article.id %}
+                                {{ value }}
+                            {% endif %}
+                        {% endfor %} Comentario/s
+                    </a>
+                </div>
                 <div class="entry__meta">
+                    {% for category in article.categories.all %}
                     <span class="entry__meta-links">
-                        <a href="category.html">Cooking</a>
-                        <a href="category.html">Health</a>
+                        <a href="{%  url 'category_page' category=category.name %}" title="{{ category.name }}">{{ category.name }}</a>
                     </span>
+                    {% endfor %}
                 </div>
             </div>
         </div>

@@ -35,6 +35,8 @@ Fuentes
 Genéricos
 **/
 html {
+    min-height: 100%;
+    position: relative;
     box-sizing: border-box;
  }
  
@@ -112,7 +114,9 @@ html {
 }
 
 .texto-blanco{
+    position: relative;
     font-family: "metropolis-medium";
+    padding: 8px;
     color: white;
     cursor: pointer
 }
@@ -605,8 +609,7 @@ html {
  input[type="tel"],
  input[type="url"],
  input[type="password"],
- textarea,
- select {
+ textarea{
     display: block;
     height: 6rem;
     padding: 1.5rem 0;
@@ -647,7 +650,7 @@ html {
     padding: 0;
  }
  
- .cl-custom-select select {
+ .cl-custom-select {
     -webkit-appearance: none;
     -moz-appearance: none;
     -ms-appearance: none;
@@ -660,12 +663,12 @@ html {
     vertical-align: middle;
  }
  
- .cl-custom-select select option {
+ .cl-custom-select option {
     padding-left: 2rem;
     padding-right: 2rem;
  }
  
- .cl-custom-select select::-ms-expand {
+ .cl-custom-select ::-ms-expand {
     display: none;
  }
  
@@ -707,8 +710,7 @@ html {
  input[type="tel"]:focus,
  input[type="url"]:focus,
  input[type="password"]:focus,
- textarea:focus,
- select:focus {
+ textarea:focus {
     color: #1C0113;
     border-bottom: 2px solid #EA3A01;
  }
@@ -783,7 +785,7 @@ html {
   * ------------------------------------------------------------------- */
  input:-webkit-autofill, input:-webkit-autofill:hover, input:-webkit-autofill:focus
  input:-webkit-autofill, textarea:-webkit-autofill, textarea:-webkit-autofill:hover
- textarea:-webkit-autofill:focus, select:-webkit-autofill, select:-webkit-autofill:hover, select:-webkit-autofill:focus {
+ textarea:-webkit-autofill:focus {
     -webkit-text-fill-color: #1C0113;
     transition: background-color 5000s ease-in-out 0s;
  }
@@ -990,6 +992,9 @@ input[type="button"].btn--primary:focus {
  /* Footer */
 
  footer {
+    position: absolute;
+    bottom: 0;
+    width:100%;
     margin-top: 10.2rem;
     padding-bottom: 6rem;
     font-size: 1.5rem;
@@ -1085,3 +1090,4 @@ input[type="button"].btn--primary:focus {
     -ms-transform: translate3d(0, 0, 0);
     transform: translate3d(0, 0, 0);
  }
+

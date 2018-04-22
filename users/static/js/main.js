@@ -4,7 +4,7 @@
 
 var clBackToTop = function() {
     
-    var pxShow      = 500,
+    var pxShow      = 400,
         goTopButton = $(".go-top")
 
     // Show or hide the button
@@ -96,3 +96,18 @@ $('#fecha').datepicker({
 //Ejecución de las funciones
 clBackToTop();
 clSearch('#capaBuscar', '.capa-buscador');
+
+
+/* function onchange for select */
+function changeOrder(estado) {
+    var name = "order_by"
+    var str = location.search;
+    if (new RegExp("[&?]"+name+"([=&].+)?$").test(str)) {
+        str = str.replace(new RegExp("(?:[&?])"+name+"[^&]*", "g"), "")
+    }
+    str += "&";
+    str += name + "=" + estado;
+    str = "?" + str.slice(1);
+    // there is an official order for the query and the hash if you didn't know.
+    location.assign(location.origin + location.pathname + str + location.hash)
+};

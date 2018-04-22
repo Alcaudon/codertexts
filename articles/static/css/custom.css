@@ -35,6 +35,8 @@ Fuentes
 Genéricos
 **/
 html {
+    min-height: 100%;
+    position: relative;
     box-sizing: border-box;
  }
  
@@ -45,13 +47,10 @@ html {
  }
  
  body {
-<<<<<<< HEAD
-=======
 	min-height: 75rem;
 	padding-top: 4.5rem;
     min-height: 75rem;
     padding-top: 4.5rem;
->>>>>>> christian_django
     word-wrap: break-word;
     text-rendering: optimizeLegibility;
     -webkit-overflow-scrolling: touch;
@@ -87,11 +86,7 @@ html {
 .navbar-inverse .navbar-nav .nav-link:hover {
     color: #EA3A01;
     font-weight: 500;
-<<<<<<< HEAD
-    background-color: #1C0113;
-=======
     background-color: 1C0113;
->>>>>>> christian_django
 }
 
 .btn-outline-success {
@@ -119,34 +114,18 @@ html {
 }
 
 .texto-blanco{
+    position: relative;
     font-family: "metropolis-medium";
+    padding: 8px;
     color: white;
     cursor: pointer
 }
 
-<<<<<<< HEAD
-.bg-inverse {
-    background-color: #1C0113!important;   
-}
-
-=======
->>>>>>> christian_django
 
 /* ------------------------------------------------------------------- 
  * ## Estilo para los artículos
  * ------------------------------------------------------------------- */
 
-<<<<<<< HEAD
-.heading-title{
-    padding-top: 25px;
-}
-
-h1 {
-    padding-top: 125px;
-}
-
-=======
->>>>>>> christian_django
  .caja_articulo {
     padding: 0 20px;
     margin-bottom: 20px;
@@ -630,8 +609,7 @@ h1 {
  input[type="tel"],
  input[type="url"],
  input[type="password"],
- textarea,
- select {
+ textarea{
     display: block;
     height: 6rem;
     padding: 1.5rem 0;
@@ -648,13 +626,6 @@ h1 {
     transition: all 0.3s ease-in-out;
  }
 
-<<<<<<< HEAD
- textarea {
-      height: 50rem;
- }
-
-=======
->>>>>>> christian_django
  input[type="datetime"] {
 
     display: block;
@@ -679,7 +650,7 @@ h1 {
     padding: 0;
  }
  
- .cl-custom-select select {
+ .cl-custom-select {
     -webkit-appearance: none;
     -moz-appearance: none;
     -ms-appearance: none;
@@ -692,12 +663,12 @@ h1 {
     vertical-align: middle;
  }
  
- .cl-custom-select select option {
+ .cl-custom-select option {
     padding-left: 2rem;
     padding-right: 2rem;
  }
  
- .cl-custom-select select::-ms-expand {
+ .cl-custom-select ::-ms-expand {
     display: none;
  }
  
@@ -739,8 +710,7 @@ h1 {
  input[type="tel"]:focus,
  input[type="url"]:focus,
  input[type="password"]:focus,
- textarea:focus,
- select:focus {
+ textarea:focus {
     color: #1C0113;
     border-bottom: 2px solid #EA3A01;
  }
@@ -786,52 +756,6 @@ h1 {
     text-align: center;
 }
 
-<<<<<<< HEAD
-
-/* Estilos para el área de subir imagen */
-.btn-file {
-    position: relative;
-    overflow: hidden;
-    padding: 1px;
-    margin: 0;
-}
-
-.btn-file input[type=file] {
-    position: absolute;
-    top: 0;
-    right: 0;
-    min-width: 100%;
-    min-height: 100%;
-    font-size: 100px;
-    text-align: right;
-    filter: alpha(opacity=0);
-    opacity: 0;
-    outline: none;
-    background: white;
-    cursor: inherit;
-    display: block;
-}
-
-.img-zone {
-    background-color: #F2FFF9;
-    border: 5px dashed #EA3A01;
-    border-radius: 5px;
-    padding: 20px;
-}
-
-.img-zone h2 {
-    margin-top: 0;
-}
-
-.progress, #img-preview {
-    margin-top: 15px;
-}
-
-
-
-
-=======
->>>>>>> christian_django
  /* ------------------------------------------------------------------- 
   * ## Style Placeholder Text
   * ------------------------------------------------------------------- */
@@ -861,18 +785,14 @@ h1 {
   * ------------------------------------------------------------------- */
  input:-webkit-autofill, input:-webkit-autofill:hover, input:-webkit-autofill:focus
  input:-webkit-autofill, textarea:-webkit-autofill, textarea:-webkit-autofill:hover
- textarea:-webkit-autofill:focus, select:-webkit-autofill, select:-webkit-autofill:hover, select:-webkit-autofill:focus {
+ textarea:-webkit-autofill:focus {
     -webkit-text-fill-color: #1C0113;
     transition: background-color 5000s ease-in-out 0s;
  }
 
  .full-width {
     width: 100%;
-<<<<<<< HEAD
-    margin-right: 10px;
-=======
     margin-right: 10;
->>>>>>> christian_django
  }
 
  /* ===================================================================
@@ -946,14 +866,6 @@ input[type="button"].btn--primary:focus {
    border-color: #EA3A01;
 }
 
-<<<<<<< HEAD
-
-nav button{
-    height: 3rem;
-}
-
-=======
->>>>>>> christian_django
 /* ------------------------------------------------------------------- 
  * # Capa cover
  * ------------------------------------------------------------------- */
@@ -1080,16 +992,15 @@ nav button{
  /* Footer */
 
  footer {
+    position: absolute;
+    bottom: 0;
+    width:100%;
     margin-top: 10.2rem;
     padding-bottom: 6rem;
     font-size: 1.5rem;
     line-height: 2;
     color: rgba(255, 255, 255, 0.4);
-<<<<<<< HEAD
-    background-color:  #1C0113;
-=======
     background-color:  #292B2C;
->>>>>>> christian_django
  }
  
  footer a {
@@ -1155,11 +1066,7 @@ nav button{
     line-height: 5.4rem;
     text-align: center;
     background-image: url(../images/icons/icon-arrow-up.svg);
-<<<<<<< HEAD
-    background-color: #EA3A01;
-=======
     background-color: #1C0113;
->>>>>>> christian_django
     background-repeat: no-repeat;
     background-position: center center;
     background-size: 10px 16px;
@@ -1173,11 +1080,7 @@ nav button{
  
  .go-top a:hover, .go-top a:focus {
     color: #FFFFFF;
-<<<<<<< HEAD
-    background-color: #A30006;
-=======
     background-color: #EA3A01;
->>>>>>> christian_django
  }
  
  .go-top.link-is-visible {
@@ -1187,3 +1090,4 @@ nav button{
     -ms-transform: translate3d(0, 0, 0);
     transform: translate3d(0, 0, 0);
  }
+

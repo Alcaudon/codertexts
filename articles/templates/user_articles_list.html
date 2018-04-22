@@ -6,18 +6,18 @@
         <div class="row">
             <div class="col-md-12">
                 <div>
-                    <h2 class="heading-title">Últimos posts</h2>
+                    <h2 class="heading-title">Artículos del usuario < {{ usuario }} ></h2>
                 </div>
             </div>
         </div>
         <div class="row">
 
-    {% include "articles_list.html" with articles=object_list %}
+            {% include "articles_list.html" with articles=username %}
 
         </div>
         <div>
             {% if page_obj.has_previous %}
-            <a href="{% url 'home_page' %}?page={{ page_obj.previous_page_number }}">
+            <a href="{% url 'user_articles_page' %}?page={{ page_obj.previous_page_number }}">
                 <span>&laquo; Previous</span>
             </a>
             {% else %}
@@ -27,7 +27,7 @@
             <span> | </span>
 
                 {% if page_obj.has_next %}
-                <a href="{% url 'home_page' %}?page={{ page_obj.next_page_number }}">
+                <a href="{% url 'user_articles_page' %}?page={{ page_obj.next_page_number }}">
                     <span>Next &raquo;</span>
                 </a>
                 {% else %}

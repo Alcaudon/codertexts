@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django.urls import path
-from articles.views import HomeView, ArticleDetailView
+from articles.views import HomeView, ArticleDetailView, CategoryView, UserArticlesView
 from users.api import UserCreateAPI, UserUpdateAPI, UserDeleteAPI
 from articles.api import NewArticleAPI, GetAllArticlesAPI, GetAllArticlesByUserAPI, ActionArticleAPI,GetAllCategoriesAPI
 from users.views import LoginUserView, signupView
@@ -9,7 +9,9 @@ from users.views import LoginUserView, signupView
 urlpatterns = [
     path('admin/', admin.site.urls),
 
-    path('<str:username>/<slug:title>', ArticleDetailView.as_view(), name = "article_detail_page"),
+    path('articles/category/<str:category>', CategoryView.as_view(), name = "category_page"),
+    path('articles/<str:username>/<slug:title>', ArticleDetailView.as_view(), name = "article_detail_page"),
+    path('articles/<str:username>/', UserArticlesView.as_view(), name = "user_articles_page"),
     path('signup/', signupView.as_view(), name = "signup_page"),
     path('', HomeView.as_view(), name = "home_page"),
 

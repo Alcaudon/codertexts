@@ -139,3 +139,7 @@ REST_FRAMEWORK = {
         'rest_framework.authentication.BasicAuthentication',
     ),
 }
+
+# Limitación de los artículos a mostrar
+
+ARTICLES_LIMIT = 2
