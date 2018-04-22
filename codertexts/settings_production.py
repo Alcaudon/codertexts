@@ -1,5 +1,5 @@
 import os
-from codertext.settings import *
+from codertexts.settings import *
 
 DEBUG = False
 TEMPLATE_DEBUG = False
