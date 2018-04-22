@@ -11,7 +11,13 @@
     <title>{% block title %} CoderTexts {% endblock %}</title>
 
     <!-- Bootstrap core CSS -->
-    <link rel="stylesheet" href="{% static "styles.bundle.css" %}">
+
+    <link rel="stylesheet" href="{% static 'styles.bundle.css' %}">
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/custom.css' %}">
+    <link rel="stylesheet" href="{% static 'css/font-awesome/css/font-awesome.min.css' %}">
+    <!-- Custom styles for this template -->
+
   </head>
   <body>
 
@@ -19,7 +25,7 @@
     <nav class="navbar navbar-toggleable-md navbar-inverse fixed-top bg-inverse">
     <div class="header__logo">
         <a class="logo" href="index.html">
-            <img src="{% static "images/logo-codertexts-peq.png" %}" alt="Homepage">
+            <img src="{% static 'images/logo-codertexts-peq.png' %}" alt="Homepage">
         </a>
     </div> <!-- end header__logo -->
       <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
@@ -31,13 +37,29 @@
           <li class="nav-item active">
             <a class="nav-link" href="{%  url "home_page" %}">{% trans 'Inicio' %} <span class="sr-only">(current)</span></a>
           </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Javascript</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Python</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">HTML/CSS</a>
+          </li>
           {% for category in categories %}
               <li class="nav-item">
                 <a class="nav-link" href="#">{{ category.name }}</a>
               </li>
           {% endfor %}
         </ul>
-
+<<<<<<< HEAD
+          <form class="customized-select" style="width:200px;" method="POST">
+            <select id="order_list" onchange="changeOrder(this.value)">
+              <option value="">Ordenar</option>
+              <option value="antiguos">Más antiguos: primeros</option>
+              <option value="modernos">Más antiguos: últimos</option>
+            </select>
+          </form>
           <div class="texto-gris capa-buscador">
           <i class="fa fa-search"></i>Buscar
          </div>
@@ -150,11 +172,15 @@
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
     </body>
-    <script src="{% static "scripts.bundle.js" %}"></script>
+    <script src="{% templates 'angular/scripts.bundle.js' %}"></script>
     <script>
         function cambio(valor) {
            document.getElementById("language").value = valor;
            document.getElementById("go").click();
         }
     </script>
+    <script src="https://npmcdn.com/tether@1.2.4/dist/js/tether.min.js"></script>
+    <script src="{% static 'js/jquery-3.2.1.min.js' %}"></script>
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'js/main.js' %}"></script>
 </html>

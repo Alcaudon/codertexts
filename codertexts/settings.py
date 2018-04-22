@@ -152,6 +152,7 @@ REST_FRAMEWORK = {
         'rest_framework.authentication.BasicAuthentication',
     ),
 }
+
 REST_USE_JWT = True
 
 ACCOUNT_USERNAME_REQUIRED = True
@@ -167,7 +168,6 @@ JWT_AUTH = {
     'JWT_REFRESH_EXPIRATION_DELTA': datetime.timedelta(days=40),
     'JWT_PAYLOAD_HANDLER': 'rest_framework_jwt.utils.jwt_payload_handler'
 }
-
 
 # Propiedades para evitar el problema de CORS
 
@@ -188,3 +188,8 @@ CORS_ORIGIN_WHITELIST = (
 LOCALE_PATHS = (
  os.path.join(BASE_DIR, "locale"),
 )
+
+# Limitación de los artículos a mostrar
+
+ARTICLES_LIMIT = 2
+
