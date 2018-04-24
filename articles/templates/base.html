@@ -12,7 +12,6 @@
 
     <!-- Bootstrap core CSS -->
 
-    <link rel="stylesheet" href="{% static 'styles.bundle.css' %}">
     <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
     <link rel="stylesheet" href="{% static 'css/custom.css' %}">
     <link rel="stylesheet" href="{% static 'css/font-awesome/css/font-awesome.min.css' %}">
@@ -24,7 +23,7 @@
     <!--Barra de navegación-->
     <nav class="navbar navbar-toggleable-md navbar-inverse fixed-top bg-inverse">
     <div class="header__logo">
-        <a class="logo" href="index.html">
+        <a class="logo" href="{%  url 'home_page' %}">
             <img src="{% static 'images/logo-codertexts-peq.png' %}" alt="Homepage">
         </a>
     </div> <!-- end header__logo -->
@@ -35,7 +34,7 @@
       <div class="collapse navbar-collapse" id="navbarCollapse">
         <ul class="navbar-nav mr-auto">
           <li class="nav-item active">
-            <a class="nav-link" href="{%  url "home_page" %}">{% trans 'Inicio' %} <span class="sr-only">(current)</span></a>
+            <a class="nav-link" href="{%  url 'home_page' %}">{% trans 'Inicio' %} <span class="sr-only">(current)</span></a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="#">Javascript</a>
@@ -52,29 +51,22 @@
               </li>
           {% endfor %}
         </ul>
-          <form class="customized-select" style="width:200px;" method="POST">
-            <select id="order_list" onchange="changeOrder(this.value)">
-              <option value="">Ordenar</option>
-              <option value="antiguos">Más antiguos: primeros</option>
-              <option value="modernos">Más antiguos: últimos</option>
-            </select>
-          </form>
-          <div class="texto-gris capa-buscador">
-          <i class="fa fa-search"></i>Buscar
-         </div>
+          <div class="texto-blanco capa-buscador">
+            <i class="fa fa-search"></i>Buscar
+          </div>
           {% if user.is_authenticated %}
-            <div class="texto-gris">
-                <i class="fa fa-user"></i><a href="{%  url "angular_home" %}">Área Privada</a>
+            <div class="texto-blanco">
+                <i class="fa fa-home"></i><a href="{%  url 'angular_home' %}">Área Privada</a>
             </div>
-            <div class="texto-gris">
-              <i class="fa fa-user"></i><a href="{%  url "logout_page" %}">Salir</a>
+            <div class="texto-blanco">
+                <i class="fa fa-user"></i><a href="{%  url 'logout_page' %}">Salir</a>
             </div>
         {% else %}
-            <div class="texto-gris">
-              <i class="fa fa-user"></i><a href="{%  url "login_page" %}">Entrar</a>
+            <div class="texto-blanco">
+                <i class="fa fa-user"></i><a href="{%  url 'login_page' %}">Entrar</a>
             </div>
-            <div class="texto-gris">
-                  <i class="fa fa-sign-in"></i><a href="{%  url "signup_page" %}">Unirse</a>
+            <div class="texto-blanco">
+                <i class="fa fa-sign-in"></i><a href="{%  url 'signup_page' %}">Unirse</a>
             </div>
         {% endif %}
          <div style="margin-left: 10px">
@@ -171,7 +163,6 @@
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
     </body>
-    <script src="{% templates 'angular/scripts.bundle.js' %}"></script>
     <script>
         function cambio(valor) {
            document.getElementById("language").value = valor;
@@ -179,6 +170,7 @@
         }
     </script>
     <script src="https://npmcdn.com/tether@1.2.4/dist/js/tether.min.js"></script>
+    <script src="{% static 'angular/scripts.bundle.js' %}"></script>
     <script src="{% static 'js/jquery-3.2.1.min.js' %}"></script>
     <script src="{% static 'js/bootstrap.min.js' %}"></script>
     <script src="{% static 'js/main.js' %}"></script>

@@ -7,28 +7,17 @@
                 <div>
                     <h4 class="heading-title">Últimos posts</h4>
                 </div>
-            </div>
-            <div class="col-md-2">
-                <div>
-                    <h4 class="heading-title">Filtros</h4>
-                </div>
+                <form class="customized-select" style="width:200px;" method="POST">
+                    <select id="order_list" onchange="changeOrder(this.value)">
+                        <option value="">Ordenar</option>
+                        <option value="antiguos">Más antiguos: primeros</option>
+                        <option value="modernos">Más antiguos: últimos</option>
+                    </select>
+                </form>
             </div>
         </div>
         <div class="row">
-            <div class="col-md-10" >
                 {% include "articles_list.html" with articles=object_list %}
-            </div>
-            <div class="col-md-2" >
-
-              <form action="orderList" method="post">
-                  <select name="order_list">
-                    <option value="0">Ordenar</option>
-                      <option value="1">Más antiguos: primero</option>
-                    <option value="0">Más antiguos: último</option>
-                  </select>
-              </form>
-            </div>
-
         </div>
         <div>
             {% if page_obj.has_previous %}
