@@ -1,0 +1,39 @@
+{%  extends "base.html" %}
+
+{% block content %}
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div>
+                    <h2 class="heading-title">Artículos de la categoría < {{ categoria }} ></h2>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+
+            {% include "articles_list.html" with articles=category %}
+
+        </div>
+        <div>
+            {% if page_obj.has_previous %}
+            <a href="{% url 'category_page' %}?page={{ page_obj.previous_page_number }}">
+                <span>&laquo; Previous</span>
+            </a>
+            {% else %}
+            <span>&laquo; Previous</span>
+            {% endif %}
+
+            <span> | </span>
+
+                {% if page_obj.has_next %}
+                <a href="{% url 'category_page' %}?page={{ page_obj.next_page_number }}">
+                    <span>Next &raquo;</span>
+                </a>
+                {% else %}
+                <span>Next &raquo;</span>
+                {% endif %}
+        </div>
+    </div>
+
+{% endblock %}

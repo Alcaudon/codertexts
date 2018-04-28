@@ -9,7 +9,9 @@ https://docs.djangoproject.com/en/2.0/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/2.0/ref/settings/
 """
+import datetime
 import os
+from django.utils.translation import ugettext_lazy as _
 
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
@@ -28,7 +30,6 @@ DEBUG = True
 ALLOWED_HOSTS = ['*']
 
 
-
 # Application definition
 
 INSTALLED_APPS = [
@@ -38,13 +39,20 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'articles.apps.ArticlesConfig',
-    'users.apps.UsersConfig',
+    # Third party packages
+    'corsheaders',
+    'rest_framework',
+    'rest_auth',
+    # Own packages
+    'articles',
+    'users',
 ]
 
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'django.middleware.locale.LocaleMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -57,8 +65,7 @@ ROOT_URLCONF = 'codertexts.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'templates')]
-        ,
+        'DIRS': [os.path.join(BASE_DIR, 'articles/templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -107,6 +114,11 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/2.0/topics/i18n/
 
+LANGUAGES = (
+    ('en-us', _('en')),
+    ('es-es', _('es')),
+)
+
 LANGUAGE_CODE = 'es-es'
 
 TIME_ZONE = 'UTC'
@@ -122,8 +134,67 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.0/howto/static-files/
 
 STATIC_URL = '/static/'
+
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
-#Mofification to extend user model
+STATICFILES_DIRS = (
+    os.path.join(BASE_DIR, 'articles/templates/angular'),
+    os.path.join(BASE_DIR, 'articles/static/images'),
+)
+
+# Mofification to extend user model
 
 AUTH_USER_MODEL = 'users.User'
+
+# Propiedades para REST_FRAMEWORK
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework_jwt.authentication.JSONWebTokenAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
+        'rest_framework.authentication.BasicAuthentication',
+    ),
+}
+
+REST_USE_JWT = True
+
+ACCOUNT_USERNAME_REQUIRED = True
+
+OLD_PASSWORD_FIELD_ENABLED = True   # To use old_password on change password.
+LOGOUT_ON_PASSWORD_CHANGE = False   # To keep the user logged in after password change
+
+
+JWT_AUTH = {
+    'JWT_AUTH_HEADER_PREFIX': 'Bearer',  # To change word JWT in Authorization header
+    'JWT_EXPIRATION_DELTA': datetime.timedelta(days=30),
+    'JWT_ALLOW_REFRESH': True,
+    'JWT_REFRESH_EXPIRATION_DELTA': datetime.timedelta(days=40),
+    'JWT_PAYLOAD_HANDLER': 'rest_framework_jwt.utils.jwt_payload_handler'
+}
+
+# Propiedades para evitar el problema de CORS
+
+CORS_ORIGIN_ALLOW_ALL = False
+CORS_ALLOW_CREDENTIALS = True
+CORS_ORIGIN_WHITELIST = (
+    'http://localhost:4200'
+)
+
+
+""" CORS_ORIGIN_WHITELIST = (
+  'http://localhost:4200',
+  'http://127.0.0.1:4200',
+  'http://127.0.0.1:8000',
+)
+"""
+
+LOCALE_PATHS = (
+ os.path.join(BASE_DIR, "locale"),
+)
+
+# Limitación de los artículos a mostrar
+
+ARTICLES_LIMIT = 10
+
+
+AUTH_USER_MODEL = 'users.User'
+

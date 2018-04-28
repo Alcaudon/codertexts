@@ -1,0 +1,126 @@
+{% extends "base.html" %}
+{% load staticfiles%}
+
+{% block head_title %} {{ article.title }} {% endblock %}
+
+{% block content %}
+  <!--Detalle del post-->
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <div>
+          &nbsp;
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <article class="col-md-12">
+        <h1 class="entry__title">
+          {{ article.title }}
+        </h1>
+        <div class="row">
+            <div class="entry__date col-md">
+              {{ article.pub_date | date:"d/m/Y" }}
+
+                  <span class="botonEstrella">
+                    <a href="#"  alt="Agregar a favoritos" ><i class="fa fa-star"></i></a>
+                  </span>
+
+            </div>
+            <div>
+              <p class="s-content__tags">
+                <span>Categorías</span>
+                <span class="s-content__tag-list">
+                    {% for category in article.categories.all %}
+                        <a href="{%  url 'category_page' category=category.name %}" title="{{ category.name }}">{{ category.name }}</a>
+                    {% endfor %}
+                </span>
+              </p>
+            </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <img style="float:left; padding-right: 20px" src="{% static "images/terrier.jpg" %}" srcset="{% static "images/terrier.jpg 1x, images/terrier.png 2x" %}" alt="">
+            <p class="lead">{{ article.text }}</p>
+          </div>
+          <!--Barra lateral del autor -->
+          <div class="col-md-2 s-content__author text-center">
+            <div class="">
+              <img src="./images/user-03.jpg" alt="">
+            </div>
+            <div class="s-content__author-about">
+              <h4 class="s-content__author-name">
+                <a href="{%  url 'user_articles_page' username=article.id_user %}">{{ article.id_user.first_name }} {{ article.id_user.last_name }}</a>
+                <span class="botonEstrella">
+                    <a href="#"  alt="Seguir" ><i class="fa fa-user"></i></a>
+                </span>
+              </h4>
+              <p>Alias aperiam at debitis deserunt dignissimos dolorem doloribus, fuga fugiat impedit laudantium magni maxime
+                nihil nisi quidem quisquam sed ullam voluptas voluptatum. Lorem ipsum dolor sit amet, consectetur adipisicing
+                elit.
+              </p>
+
+              <ul class="s-content__author-social">
+                <li><a href="#0"><i class="fa fa-facebook-square"></i>Facebook</a></li>
+                <li><a href="#0"><i class="fa fa-twitter"></i>Twitter</a></li>
+                <li><a href="#0"><i class="fa fa-instagram"></i>Instagram</a></li>
+              </ul>
+            </div>
+            <!--Fin Barra lateral del autor -->
+          </div>
+
+        </div>
+      </article>
+        <!-- fin del artículo -->
+    </div>
+
+
+    <!-- bloque de comentarios -->
+
+            <!-- comments
+        ================================================== -->
+        <div class="comments-wrap">
+            <div id="comments" class="row">
+              <div class="col-md-12">
+                  <h3 class="h2" id="comentarios">{{ comment|length }} Comentarios</h3>
+          {% include "comments_list.html" with comments=comment %}
+                  </div>
+          </div> <!-- end row comments -->
+
+                  <!-- Bloque y formulario para añadir un nuevo comentario
+                  ================================================== -->
+          {% if user.is_authenticated %}
+            <div class="respond">
+
+            <h3 class="entry__title">Añadir comentario</h3>
+
+            <form name="formulario" id="formulario" method="post" action="">
+                <fieldset>
+
+                    <div class="form-field">
+                            <input name="cName" type="text" id="cName" class="full-width" placeholder="Tu nombre" value="">
+                    </div>
+
+                    <div class="form-field">
+                            <input name="cEmail" type="text" id="cEmail" class="full-width" placeholder="Tu email" value="">
+                    </div>
+
+                    <div class="form-field">
+                            <input name="cWebsite" type="text" id="cWebsite" class="full-width" placeholder="Website" value="">
+                    </div>
+
+                    <div class="message form-field">
+                        <textarea name="cMessage" id="cMessage" class="full-width" placeholder="Tu mensaje"></textarea>
+                    </div>
+
+                    <button type="submit" class="submit btn--primary btn--large full-width">Enviar</button>
+
+                </fieldset>
+            </form> <!-- end form -->
+
+            </div> <!-- end respond -->
+            {% endif %}
+       </div> <!-- end comments-wrap -->
+     </div>
+
+{% endblock %}

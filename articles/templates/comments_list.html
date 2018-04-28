@@ -1,0 +1,31 @@
+{% load staticfiles%}
+<!-- comment list -->
+                  <ol class="commentlist">
+                      {% for comment in comments %}
+
+                      <li class="depth-1 comment">
+
+                          <div class="comment__avatar">
+                              <img width="50" height="50" class="avatar" src="./images/user-01.jpg" alt="">
+                          </div>
+
+                          <div class="comment__content">
+
+                              <div class="comment__info">
+                                  <cite>{{ comment.id_user_comment.first_name }} {{ comment.id_user_comment.last_name }} - {{ comment.id_user_comment.username }}</cite>
+
+                                  <div class="comment__meta">
+                                      <time class="comment__time">{{ comment.pub_date }}</time>
+                                      <a class="reply" href="#0">Responder</a>
+                                  </div>
+                              </div>
+
+                              <div class="comment__text">
+                              <p>{{ comment.text }}</p>
+                              </div>
+                          </div>
+                      </li> <!-- end comment level 1 -->
+
+                      {% endfor %}
+
+                  </ol> <!-- final de lista de comentarios -->

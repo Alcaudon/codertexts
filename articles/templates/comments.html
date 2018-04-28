@@ -1,0 +1,122 @@
+<!-- bloque de comentarios -->
+<div class="comments-wrap">
+    <div id="comments" class="row">
+        <div class="col-md-12">
+            <h3 class="h2">4 Comentarios</h3>
+            <!-- comment list -->
+            <ol class="commentlist">
+
+                <li class="depth-1 comment">
+
+                    <div class="comment__avatar">
+                        <img width="50" height="50" class="avatar" src="../../dist/images/user-01.jpg" alt="">
+                    </div>
+
+                    <div class="comment__content">
+
+                        <div class="comment__info">
+                            <cite>Itachi Uchiha</cite>
+
+                            <div class="comment__meta">
+                                <time class="comment__time">Dec 16, 2017 @ 23:05</time>
+                                <a class="reply" href="#0">Responder</a>
+                            </div>
+                        </div>
+
+                        <div class="comment__text">
+                            <p>Adhuc quaerendum est ne, vis ut harum tantas noluisse, id suas iisque mei. Nec te inani
+                                ponderum vulputate,
+                                facilisi expetenda has et. Iudico dictas scriptorem an vim, ei alia mentitum est, ne has
+                                voluptua praesent.</p>
+                        </div>
+                    </div>
+                </li> <!-- end comment level 1 -->
+                <li class="thread-alt depth-1 comment">
+
+                    <div class="comment__avatar">
+                        <img width="50" height="50" class="avatar" src="../../dist/images/user-02.jpg" alt="">
+                    </div>
+
+                    <div class="comment__content">
+
+                        <div class="comment__info">
+                            <cite>John Doe</cite>
+
+                            <div class="comment__meta">
+                                <time class="comment__time">Dec 16, 2017 @ 24:05</time>
+                                <a class="reply" href="#0">Responder</a>
+                            </div>
+                        </div>
+                        <div class="comment__text">
+                            <p>Sumo euismod dissentiunt ne sit, ad eos iudico qualisque adversarium, tota falli et mei.
+                                Esse euismod
+                                urbanitas ut sed, et duo scaevola pericula splendide. Primis veritus contentiones nec
+                                ad, nec et
+                                tantas semper delicatissimi.</p>
+                        </div>
+                    </div>
+                    <ul class="children">
+
+                        <li class="depth-2 comment">
+
+                            <div class="comment__avatar">
+                                <img width="50" height="50" class="avatar" src="../../dist/images/user-04.jpg" alt="">
+                            </div>
+
+                            <div class="comment__content">
+
+                                <div class="comment__info">
+                                    <cite>Kakashi Hatake</cite>
+
+                                    <div class="comment__meta">
+                                        <time class="comment__time">Dec 16, 2017 @ 25:05</time>
+                                        <a class="reply" href="#0">Responder</a>
+                                    </div>
+                                </div>
+
+                                <div class="comment__text">
+                                    <p>Duis sed odio sit amet nibh vulputate
+                                        cursus a sit amet mauris. Morbi accumsan ipsum velit. Duis sed odio sit amet
+                                        nibh vulputate
+                                        cursus a sit amet mauris</p>
+                                </div>
+
+                            </div>
+                        </li>
+
+                    </ul>
+
+                </li> <!-- end comment level 1 -->
+
+                <li class="depth-1 comment">
+
+                    <div class="comment__avatar">
+                        <img width="50" height="50" class="avatar" src="../../dist/images/user-03.jpg" alt="">
+                    </div>
+
+                    <div class="comment__content">
+
+                        <div class="comment__info">
+                            <cite>Shikamaru Nara</cite>
+
+                            <div class="comment__meta">
+                                <time class="comment-time">Dec 16, 2017 @ 25:15</time>
+                                <a class="reply" href="#">Responder</a>
+                            </div>
+                        </div>
+
+                        <div class="comment__text">
+                            <p>Typi non habent claritatem insitam; est usus legentis in iis qui facit eorum
+                                claritatem.</p>
+                        </div>
+
+                    </div>
+
+                </li>
+
+            </ol> <!-- final de lista de comentarios -->
+        </div>
+    </div> <!-- end row comments -->
+    <!-- Bloque y formulario para añadir un nuevo comentario -->
+    {% include "new_comment.html" %}
+</div> <!-- end comments-wrap -->
