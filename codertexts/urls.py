@@ -36,6 +36,7 @@ urlpatterns = [
     path('api/1.0/article/<int:pk>', ActionArticleAPI.as_view(), name="api_article_detail"),
     path('api/1.0/article/new/', NewArticleAPI.as_view(), name="api_new_article"),
     path('api/1.0/articles/all/', GetAllArticlesAPI.as_view(), name="api_articles_all"),
-    path('api/1.0/articles/user/<int:id_user>', GetAllArticlesByUserAPI.as_view(), name="api_new_article"),
+    path('api/1.0/articles/user/<int:id_user>', GetAllArticlesByUserAPI.as_view(), name="api_user_article"),
+    path('api/1.0/article/delete/<int:pk>', ActionArticleAPI.as_view(), name="api_article_delete"),
     path('api/1.0/categories/all/', GetAllCategoriesAPI.as_view(), name="api_categories_all")
 ]
