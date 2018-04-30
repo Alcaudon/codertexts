@@ -7,13 +7,14 @@ from articles.models import Article
 from users.permissions import UserPermissions
 from articles.models import Category
 from articles.serializers import CategoriesSerializer
+from rest_framework.permissions import IsAuthenticated
 
 
-@method_decorator(csrf_protect, name='dispatch')
+#@method_decorator(csrf_protect, name='dispatch')
 class NewArticleAPI(CreateAPIView):
     queryset = Article.objects.all()
     serializer_class = ArticlesSerializer
-    permission_classes = [UserPermissions]
+    permission_classes = [UserPermissions, IsAuthenticated]
 
 
 class ActionArticleAPI(RetrieveUpdateDestroyAPIView):
