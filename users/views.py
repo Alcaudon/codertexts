@@ -1,11 +1,17 @@
 from django.contrib.auth import authenticate, login as django_login, logout as django_logout
 from django.http import HttpResponseRedirect
 from django.urls import reverse
+from rest_framework import status
 from rest_framework.views import APIView
 from django.contrib import messages
+from datetime import datetime
 
 from django.shortcuts import render, redirect
 from django.views import View
+from rest_framework_jwt.serializers import JSONWebTokenSerializer, VerifyJSONWebTokenSerializer, \
+    RefreshJSONWebTokenSerializer
+from rest_framework_jwt.views import JSONWebTokenAPIView, jwt_response_payload_handler
+
 from users.forms import SignupForm, LoginForm
 from rest_framework.response import Response
 from rest_framework_jwt.settings import api_settings
@@ -81,5 +87,40 @@ class LoginView(View):
 def logout(request):
     django_logout(request)
     response = HttpResponseRedirect(reverse("home_page"))
-    response.delete_cookie('csrftoken')
+    response.delete_cookie('token')
     return response
+
+
+class GestionToken(JSONWebTokenAPIView):
+
+    def post(self, request, *args, **kwargs):
+        serializer = self.get_serializer(data=request.data)
+
+        if serializer.is_valid():
+            user = serializer.object.get('user') or request.user
+            token = serializer.object.get('token')
+            response_data = jwt_response_payload_handler(token, user, request)
+            response = Response(response_data)
+            if api_settings.JWT_AUTH_COOKIE:
+                expiration = (datetime.utcnow() +
+                              api_settings.JWT_EXPIRATION_DELTA)
+                response.set_cookie(api_settings.JWT_AUTH_COOKIE,
+                                    token,
+                                    expires=expiration,
+                                    httponly=True)
+            return response
+
+        return Response(serializer.errors, status=status.HTTP_200_OK)
+
+
+class ObtenerToken(GestionToken):
+    serializer_class = JSONWebTokenSerializer
+
+
+class VerificarToken(GestionToken):
+    serializer_class = VerifyJSONWebTokenSerializer
+
+
+class ActualizarToken(GestionToken):
+    serializer_class = RefreshJSONWebTokenSerializer
+

@@ -1,11 +1,16 @@
+import jwt
+from django.contrib.auth import login
 from django.utils.datetime_safe import datetime
-from django.shortcuts import get_object_or_404, render
+from django.shortcuts import get_object_or_404
 from django.views.generic import ListView, DetailView
+from rest_framework_jwt.authentication import jwt_decode_handler
+
 from articles.models import Article, Comment
 from codertexts.settings import ARTICLES_LIMIT
 from users.models import User
 
-def ordenarArticulos (peticion):
+
+def ordenarArticulos(peticion):
     orden = peticion.GET.get('order_by')
     if orden == 'antiguos':
         orden_list = 'pub_date'
@@ -15,7 +20,8 @@ def ordenarArticulos (peticion):
         orden_list = '-pub_date'
     return orden_list
 
-def contarComentarios (comentarios, articulos):
+
+def contarComentarios(comentarios, articulos):
     numberofcomments = dict()
     for articulo in articulos:
         numberofcomments[articulo.id] = 0
@@ -30,8 +36,16 @@ class HomeView(ListView):
     template_name = "home.html"
     paginate_by = ARTICLES_LIMIT # variable global en settings.py
 
+    def dispatch(self, request, *args, **kwargs):
+        csrf_cookie = request.COOKIES.get('token')
+        if csrf_cookie:
+           usuario = self.authenticate_credentials(csrf_cookie)
+           if usuario:
+               login(request, usuario)
+        return super().dispatch(request, *args, **kwargs)
+
     def get_queryset(self):
-        queryset = Article.objects.filter(status='finalizado').filter(pub_date__lte=datetime.now()).order_by(ordenarArticulos (self.request)) # limitamos el número de artículos en esta vista en la variable ARTICLES_LIMIT de settings.py
+        queryset = Article.objects.filter(status='finalizado').filter(pub_date__lte=datetime.now()).order_by(ordenarArticulos(self.request)) # limitamos el número de artículos en esta vista en la variable ARTICLES_LIMIT de settings.py
         return queryset
         # artículos publicados, con fecha de publicación en el pasado y ordenadas de más reciente a más antigua
 
@@ -41,6 +55,25 @@ class HomeView(ListView):
         articulos = Article.objects.filter(status='finalizado').filter(pub_date__lte=datetime.now()).order_by(ordenarArticulos(self.request))
         context['numofcomments'] = contarComentarios(comentarios, articulos)
         return context
+
+    def authenticate_credentials(self, token):
+        payload = jwt_decode_handler(token)
+        username = payload['username']
+        email = payload['email']
+        try:
+            user = User.objects.get(
+                username=username,
+                email=email,
+                is_active=True
+            )
+            if user:
+                return user
+        except jwt.ExpiredSignature or jwt.DecodeError or jwt.InvalidTokenError:
+            return None
+        except User.DoesNotExist:
+            return None
+        return None
+
 
 class ArticleDetailView(DetailView):
     model = Article
@@ -57,6 +90,7 @@ class ArticleDetailView(DetailView):
         query = Comment.objects.filter(id_article__slug=title).order_by('-pub_date')
         context['comment'] = query
         return context
+
 
 class CategoryView(ListView):
     model = Article
@@ -83,6 +117,7 @@ class CategoryView(ListView):
         context['numofcomments'] = contarComentarios(comentarios, articulos)
         return context
 
+
 class UserArticlesView(ListView):
     model = Article
     context_object_name = 'username'
@@ -108,6 +143,4 @@ class UserArticlesView(ListView):
         context['numofcomments'] = contarComentarios(comentarios, articulos)
         return context
 
-def angular(request):
-    return render(request, "angular/index.html")
 
