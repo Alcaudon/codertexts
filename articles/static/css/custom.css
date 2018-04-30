@@ -86,7 +86,7 @@ html {
 .navbar-inverse .navbar-nav .nav-link:hover {
     color: #EA3A01;
     font-weight: 500;
-    background-color: 1C0113;
+    background-color: #1C0113;
 }
 
 .btn-outline-success {
@@ -792,7 +792,7 @@ html {
 
  .full-width {
     width: 100%;
-    margin-right: 10;
+    margin-right: 10px;
  }
 
  /* ===================================================================
@@ -1065,7 +1065,7 @@ input[type="button"].btn--primary:focus {
     width: 5.4rem;
     line-height: 5.4rem;
     text-align: center;
-    background-image: url(../images/icons/icon-arrow-up.svg);
+    background-image: url('../images/icons/icon-arrow-up.svg');
     background-color: #1C0113;
     background-repeat: no-repeat;
     background-position: center center;
