@@ -7,7 +7,7 @@ class UserSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = User
-        fields = ['id', 'username', 'password', 'first_name', 'last_name', 'email', 'last_login']
+        fields = '__all__'
 
     def validate_username(self, data):
         if self.instance is None and User.objects.filter(username=data).exists():
