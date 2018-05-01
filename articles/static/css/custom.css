@@ -611,7 +611,7 @@ html {
  input[type="password"],
  textarea{
     display: block;
-    height: 6rem;
+    height: 3rem;
     padding: 1.5rem 0;
     border: 0;
     outline: none;
@@ -992,10 +992,9 @@ input[type="button"].btn--primary:focus {
  /* Footer */
 
  footer {
-    position: absolute;
     bottom: 0;
     width:100%;
-    margin-top: 10.2rem;
+    margin-top: 6.2rem;
     padding-bottom: 6rem;
     font-size: 1.5rem;
     line-height: 2;

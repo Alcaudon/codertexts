@@ -12,10 +12,8 @@
 
     <!-- Bootstrap core CSS -->
     <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
-    <link rel="stylesheet" href="{% static 'css/custom.css' %}">
     <link rel="stylesheet" href="{% static 'css/font-awesome/css/font-awesome.min.css' %}">
-    <!-- Custom styles for this template -->
-
+    <link rel="stylesheet" href="{% static 'css/custom.css' %}">
   </head>
   <body>
 
@@ -82,15 +80,10 @@
       {% block content %}{% endblock %}
 
 <!--inicio del footer -->
-   <!-- s-footer
-    ================================================== -->
     <footer class="s-footer">
             <div class="row">
-
                 <div class="col-md-4">
-
                     <h4>Mapa web</h4>
-
                     <ul class="s-footer__linklist">
                         <li><a href="#0">Inicio</a></li>
                       {% for category in categories %}
@@ -99,11 +92,8 @@
                           </li>
                       {% endfor %}
                     </ul>
-
                 </div> <!-- end s-footer__sitelinks -->
-
                 <div class="col-md-4">
-
                     <h4>Hemeroteca</h4>
 
                     <ul class="s-footer__linklist">
@@ -149,9 +139,6 @@
             </form>
             <a href="#0" title="Close Search" class="header__overlay-close">Cerrar</a>
      </div>  <!-- end search -->
-    <!-- Bootstrap core JavaScript
-    ================================================== -->
-    <!-- Placed at the end of the document so the pages load faster -->
     </body>
     <script>
         function cambio(valor) {

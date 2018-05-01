@@ -45,8 +45,8 @@ class LoginUserView(APIView):
 class SignupView(View):
 
     def get(self, request):
-        context = {'form': SignupForm()}
-        return render(request, "signup_form.html", context)
+        form = SignupForm()
+        return render(request, "signup_form.html", {'form': form})
 
     def post(self, request):
         form = SignupForm(request.POST)
