@@ -1,11 +1,8 @@
-import jwt
-from django.contrib.auth import login
 from django.utils.datetime_safe import datetime
 from django.shortcuts import get_object_or_404
 from django.views.generic import ListView, DetailView
-from rest_framework_jwt.authentication import jwt_decode_handler
 
-from articles.models import Article, Comment
+from articles.models import Article, Comment, Category
 from codertexts.settings import ARTICLES_LIMIT
 from users.models import User
 
@@ -36,14 +33,6 @@ class HomeView(ListView):
     template_name = "home.html"
     paginate_by = ARTICLES_LIMIT # variable global en settings.py
 
-    def dispatch(self, request, *args, **kwargs):
-        csrf_cookie = request.COOKIES.get('token')
-        if csrf_cookie:
-           usuario = self.authenticate_credentials(csrf_cookie)
-           if usuario:
-               login(request, usuario)
-        return super().dispatch(request, *args, **kwargs)
-
     def get_queryset(self):
         queryset = Article.objects.filter(status='finalizado').filter(pub_date__lte=datetime.now()).order_by(ordenarArticulos(self.request)) # limitamos el número de artículos en esta vista en la variable ARTICLES_LIMIT de settings.py
         return queryset
@@ -51,28 +40,12 @@ class HomeView(ListView):
 
     def get_context_data(self, *args, **kwargs):  # función para meter el número de comentarios en función de la lista
         context = super().get_context_data(*args, **kwargs)
+        categorias = Category.objects.order_by('name')
         comentarios = Comment.objects.order_by('-pub_date')
         articulos = Article.objects.filter(status='finalizado').filter(pub_date__lte=datetime.now()).order_by(ordenarArticulos(self.request))
         context['numofcomments'] = contarComentarios(comentarios, articulos)
+        context['categories'] = categorias
         return context
-
-    def authenticate_credentials(self, token):
-        payload = jwt_decode_handler(token)
-        username = payload['username']
-        email = payload['email']
-        try:
-            user = User.objects.get(
-                username=username,
-                email=email,
-                is_active=True
-            )
-            if user:
-                return user
-        except jwt.ExpiredSignature or jwt.DecodeError or jwt.InvalidTokenError:
-            return None
-        except User.DoesNotExist:
-            return None
-        return None
 
 
 class ArticleDetailView(DetailView):

@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django.urls import path, include
 from articles.views import HomeView, ArticleDetailView, CategoryView, UserArticlesView
-from users.api import UserCreateAPI, UserUpdateAPI, UserDeleteAPI, UserListAPI
+from users.api import UserCreateAPI, UserUpdateAPI, UserDeleteAPI, UserListAPI, Logout
 from articles.api import NewArticleAPI, GetAllArticlesAPI, GetAllArticlesByUserAPI, \
     ActionArticleAPI, GetAllCategoriesAPI
 from users.views import SignupView, LoginView, logout, VerificarToken, ActualizarToken, ObtenerToken
@@ -27,13 +27,13 @@ urlpatterns = [
 
     # API URLs
     path('api/1.0/createUser/', UserCreateAPI.as_view(), name="api_create_users"),
-    path('api/1.0/logout/', logout, name="api_logout_users"),
+    path('api/1.0/logout/', Logout.as_view(), name="api_logout_users"),
     path('api/1.0/updateUser/<int:pk>', UserUpdateAPI.as_view(), name="api_update_users"),
     path('api/1.0/deleteUser/<int:pk>', UserDeleteAPI.as_view(), name="api_delete_users"),
     path('api/1.0/user/', UserListAPI.as_view(), name="api_user_list"),
 
-    path('api/1.0/article/<int:pk>', ActionArticleAPI.as_view(), name="api_article_detail"),
     path('api/1.0/article/new/', NewArticleAPI.as_view(), name="api_new_article"),
+    path('api/1.0/article/<int:pk>', ActionArticleAPI.as_view(), name="api_article_detail"),
     path('api/1.0/articles/all/', GetAllArticlesAPI.as_view(), name="api_articles_all"),
     path('api/1.0/articles/user/<int:id_user>', GetAllArticlesByUserAPI.as_view(), name="api_user_article"),
     path('api/1.0/article/delete/<int:pk>', ActionArticleAPI.as_view(), name="api_article_delete"),
