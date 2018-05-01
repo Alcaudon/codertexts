@@ -73,8 +73,16 @@
       </article>
         <!-- fin del artículo -->
     </div>
-
-
+      <div class="container social-media">
+          <p>Comparte el artículo</p>
+          <div class="row">
+            {% load social_share %}
+              {% post_to_facebook object_or_url "Facebook" %}
+              {% post_to_twitter "Nuevo artículo en Codertexts: {{article.title}}. ¡No te lo pierdas!" object_or_url "Twitter" %}
+              {% post_to_linkedin article.title object_or_url "Linkedin" %}
+              {% send_email object.title "Codertexts: {{article.title}}." object_or_url "email" %}
+          </div>
+      </div>
     <!-- bloque de comentarios -->
 
             <!-- comments

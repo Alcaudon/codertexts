@@ -1090,3 +1090,53 @@ input[type="button"].btn--primary:focus {
     transform: translate3d(0, 0, 0);
  }
 
+.btn-social-media {
+    display: inline-block;
+    font-weight: 400;
+    line-height: 1.25;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    border: 1px solid transparent;
+    padding: .5rem 1rem .5em 0;
+    font-size: 1rem;
+    border-radius: .25rem;
+    -webkit-transition: all .2s ease-in-out;
+    -o-transition: all .2s ease-in-out;
+    transition: all .2s ease-in-out;
+    margin-right: 1rem;
+    color: white;
+}
+
+.btn-social-media:hover {
+    color: white;
+    text-decoration: none;
+    opacity: 0.75;
+    -webkit-box-shadow: 0 5px 11px 0 rgba(0,0,0,.18), 0 4px 15px 0 rgba(0,0,0,.15);
+    box-shadow: 0 5px 11px 0 rgba(0,0,0,.18), 0 4px 15px 0 rgba(0,0,0,.15);
+}
+
+.btn-social-media > i {
+    color: white;
+}
+
+.btn-fb {
+  background: #3B5998;
+}
+
+.btn-ln {
+  background: #007bb5;
+}
+
+.btn-tw {
+  background: #55ACEE;
+}
+
+.btn-ml {
+  background: #bb0000;
+}
+
