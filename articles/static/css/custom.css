@@ -412,11 +412,15 @@ html {
  }
 
  .botonEstrella .fa {
+     color: black;
+ }
+
+ .favorito .fa {
      color: gold;
  }
 
- .botonEstrella:hover {
-    background-color: #1C0113;
+ .botonEstrella:hover{
+    background-color: #A8A8A8;
  }
 
 
@@ -605,8 +609,7 @@ html {
  input[type="tel"],
  input[type="url"],
  input[type="password"],
- textarea,
- select {
+ textarea {
     display: block;
     height: 6rem;
     padding: 1.5rem 0;
@@ -1084,4 +1087,22 @@ input[type="button"].btn--primary:focus {
     -webkit-transform: translate3d(0, 0, 0);
     -ms-transform: translate3d(0, 0, 0);
     transform: translate3d(0, 0, 0);
+ }
+
+ select{
+    display: block;
+    height: 4rem;
+    padding: 1.5rem 0;
+    border: 0;
+    outline: none;
+    color: #151515;
+    font-family: "metropolis-medium", sans-serif;
+    font-size: 1rem;
+    line-height: 3rem;
+    max-width: 100%;
+    background: transparent;
+    border-bottom: 2px solid rgba(0, 0, 0, 0.5);
+    -webkit-transition: all 0.3s ease-in-out;
+    transition: all 0.3s ease-in-out;
+    width:250px;
  }

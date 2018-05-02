@@ -26,6 +26,9 @@ urlpatterns = [
     path('private/', angular, name="angular_home"),
     path('i18n/', include('django.conf.urls.i18n')),
 
+    # Ajax URLs
+    #path('ajax/addfavorite', AddFavorite, name = "add_favorite"),
+
     # API URLs
     path('api/1.0/createUser/', UserCreateAPI.as_view(), name="api_create_users"),
     path('api/1.0/login/', LoginUserView.as_view(), name="api_login_users"),

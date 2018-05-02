@@ -55,19 +55,27 @@
             <i class="fa fa-search"></i>Buscar
           </div>
           {% if user.is_authenticated %}
-            <div class="texto-blanco">
-                <i class="fa fa-home"></i><a href="{%  url 'angular_home' %}">Área Privada</a>
-            </div>
-            <div class="texto-blanco">
-                <i class="fa fa-user"></i><a href="{%  url 'logout_page' %}">Salir</a>
-            </div>
+            <a href="{%  url 'angular_home' %}">
+                <div class="texto-blanco">
+                    <i class="fa fa-home"></i>Área Privada
+                </div>
+            </a>
+            <a href="{%  url 'logout_page' %}">
+                <div class="texto-blanco">
+                    <i class="fa fa-user"></i>Salir
+                </div>
+            </a>
         {% else %}
-            <div class="texto-blanco">
-                <i class="fa fa-user"></i><a href="{%  url 'login_page' %}">Entrar</a>
-            </div>
-            <div class="texto-blanco">
-                <i class="fa fa-sign-in"></i><a href="{%  url 'signup_page' %}">Unirse</a>
-            </div>
+            <a href="{%  url 'login_page' %}">
+                <div class="texto-blanco">
+                    <i class="fa fa-user"></i>Entrar
+                </div>
+            </a>
+            <a href="{%  url 'signup_page' %}">
+              <div class="texto-blanco">
+                  <i class="fa fa-home"></i>Unirse
+              </div>
+            </a>
         {% endif %}
          <div style="margin-left: 10px">
           {% get_current_language as LANGUAGE_CODE %}
@@ -170,7 +178,7 @@
         }
     </script>
     <script src="https://npmcdn.com/tether@1.2.4/dist/js/tether.min.js"></script>
-    <script src="{% static 'angular/scripts.bundle.js' %}"></script>
+   <!-- <script src="{% static '../templates/angular/scripts.bundle.js' %}"></script> -->
     <script src="{% static 'js/jquery-3.2.1.min.js' %}"></script>
     <script src="{% static 'js/bootstrap.min.js' %}"></script>
     <script src="{% static 'js/main.js' %}"></script>

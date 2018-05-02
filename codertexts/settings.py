@@ -45,7 +45,7 @@ INSTALLED_APPS = [
     'rest_auth',
     # Own packages
     'articles',
-    'users',
+    'users'
 ]
 
 MIDDLEWARE = [

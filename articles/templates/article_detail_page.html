@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 {% load staticfiles%}
-
+{% load i18n %}
 {% block head_title %} {{ article.title }} {% endblock %}
 
 {% block content %}
@@ -22,7 +22,7 @@
             <div class="entry__date col-md">
               {{ article.pub_date | date:"d/m/Y" }}
 
-                  <span class="botonEstrella">
+                  <span id="favorito" class="botonEstrella">
                     <a href="#"  alt="Agregar a favoritos" ><i class="fa fa-star"></i></a>
                   </span>
 
@@ -90,35 +90,7 @@
                   <!-- Bloque y formulario para añadir un nuevo comentario
                   ================================================== -->
           {% if user.is_authenticated %}
-            <div class="respond">
-
-            <h3 class="entry__title">Añadir comentario</h3>
-
-            <form name="formulario" id="formulario" method="post" action="">
-                <fieldset>
-
-                    <div class="form-field">
-                            <input name="cName" type="text" id="cName" class="full-width" placeholder="Tu nombre" value="">
-                    </div>
-
-                    <div class="form-field">
-                            <input name="cEmail" type="text" id="cEmail" class="full-width" placeholder="Tu email" value="">
-                    </div>
-
-                    <div class="form-field">
-                            <input name="cWebsite" type="text" id="cWebsite" class="full-width" placeholder="Website" value="">
-                    </div>
-
-                    <div class="message form-field">
-                        <textarea name="cMessage" id="cMessage" class="full-width" placeholder="Tu mensaje"></textarea>
-                    </div>
-
-                    <button type="submit" class="submit btn--primary btn--large full-width">Enviar</button>
-
-                </fieldset>
-            </form> <!-- end form -->
-
-            </div> <!-- end respond -->
+            {% include "new_comment.html" %}
             {% endif %}
        </div> <!-- end comments-wrap -->
      </div>
