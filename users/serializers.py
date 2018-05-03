@@ -3,6 +3,13 @@ from rest_framework.exceptions import ValidationError
 from users.models import User
 
 
+class RecuperarPasswordSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = User
+        fields = ('username', 'email', 'image')
+
+
 class UserSerializer(serializers.ModelSerializer):
 
     class Meta:

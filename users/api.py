@@ -4,16 +4,20 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 
 from django.contrib.auth import logout as django_logout
+from django.db.models import Q
+
 from users.authentication import TokenAuthentication
 from users.models import User
 from users.permissions import UserPermissions
-from users.serializers import UserSerializer
+from users.serializers import UserSerializer, RecuperarPasswordSerializer
+
 
 class UserListAPI(ListAPIView):
 
     queryset = User.objects.all()
     serializer_class = UserSerializer
     permission_classes = [UserPermissions]
+
 
 class UserCreateAPI(CreateAPIView):
 
@@ -36,6 +40,17 @@ class UserDeleteAPI (DestroyAPIView):
     serializer_class = UserSerializer
     authentication_classes = [TokenAuthentication]
     permission_classes = [UserPermissions]
+
+
+class RecuperarUsuarioAPI(APIView):
+
+    def post(self, request):
+        usuario = User.objects.filter(Q(username=request.data['user']) | Q(email=request.data['user']))
+        if usuario:
+            serializer = RecuperarPasswordSerializer(usuario, many=True)
+            return Response(data=serializer.data, status=status.HTTP_200_OK, content_type="application/json")
+        else:
+            return Response(data=False, status=status.HTTP_200_OK)
 
 
 class Logout(APIView):
