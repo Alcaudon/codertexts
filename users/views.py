@@ -1,7 +1,11 @@
 from django.contrib.auth import authenticate, login as django_login, logout as django_logout
+from django.contrib.auth.forms import PasswordResetForm
+from django.contrib.auth.tokens import default_token_generator
 from django.http import HttpResponseRedirect
+from django.template.response import TemplateResponse
 from django.urls import reverse
 from rest_framework import status
+from rest_framework.decorators import api_view
 from rest_framework.views import APIView
 from django.contrib import messages
 from datetime import datetime
@@ -124,3 +128,35 @@ class VerificarToken(GestionToken):
 class ActualizarToken(GestionToken):
     serializer_class = RefreshJSONWebTokenSerializer
 
+
+@api_view(['GET', 'POST', ])
+def password_reset(request,
+                   template_name='registration/password_reset_form.html',
+                   email_template_name='registration/password_reset_email.html',
+                   subject_template_name='registration/password_reset_subject.txt',
+                   password_reset_form=PasswordResetForm,
+                   token_generator=default_token_generator,
+                   post_reset_redirect=None,
+                   from_email='webmaster@mrviriato.es',
+                   extra_context=None,
+                   html_email_template_name=None,
+                   extra_email_context=None):
+
+    if post_reset_redirect is None:
+        post_reset_redirect = reverse('password_reset_done')
+    if request.method == "GET":
+        form = password_reset_form(request.GET)
+        if form.is_valid():
+            opts = {
+                'use_https': request.is_secure(),
+                'token_generator': token_generator,
+                'from_email': from_email,
+                'email_template_name': email_template_name,
+                'subject_template_name': subject_template_name,
+                'request': request,
+                'html_email_template_name': html_email_template_name,
+                'extra_email_context': extra_email_context,
+            }
+            form.save(**opts)
+            return Response(data=True, status=status.HTTP_200_OK)
+    return Response(data=True, status=status.HTTP_200_OK)

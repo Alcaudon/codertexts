@@ -7,7 +7,7 @@ class RecuperarPasswordSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = User
-        fields = ('username', 'email', 'image')
+        fields = ('username', 'first_name', 'last_name', 'email', 'image')
 
 
 class UserSerializer(serializers.ModelSerializer):

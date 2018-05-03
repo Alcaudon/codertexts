@@ -1,23 +1,25 @@
+from django.conf.urls import url
 from django.contrib import admin
+from django.contrib.auth.views import password_reset_done, password_reset_confirm, password_reset_complete
 from django.urls import path, include
+
+
 from articles.views import HomeView, ArticleDetailView, CategoryView, UserArticlesView
 from users.api import UserCreateAPI, UserUpdateAPI, UserDeleteAPI, UserListAPI, Logout, RecuperarUsuarioAPI
 from articles.api import NewArticleAPI, GetAllArticlesAPI, GetAllArticlesByUserAPI, \
     ActionArticleAPI, GetAllCategoriesAPI
-from users.views import SignupView, LoginView, logout, VerificarToken, ActualizarToken, ObtenerToken
-
-
+from users.views import SignupView, LoginView, logout, VerificarToken, ActualizarToken, ObtenerToken, password_reset
 
 urlpatterns = [
     path('admin/', admin.site.urls),
 
-   # Auth URLs
+    # Auth URLs
     path('api/1.0/token-obtain/', ObtenerToken.as_view()),
     path('api/1.0/token-refresh/', ActualizarToken.as_view()),
     path('api/1.0/token-verify/', VerificarToken.as_view()),
 
     path('articles/category/<str:category>', CategoryView.as_view(), name="category_page"),
-    path('articles/<str:username>/<slug:title>', ArticleDetailView.as_view(), name = "article_detail_page"),
+    path('articles/<str:username>/<slug:title>', ArticleDetailView.as_view(), name="article_detail_page"),
     path('articles/<str:username>/', UserArticlesView.as_view(), name="user_articles_page"),
     path('login/', LoginView.as_view(), name="login_page"),
     path('logout/', logout, name="logout_page"),
@@ -39,5 +41,11 @@ urlpatterns = [
     path('api/1.0/articles/all/', GetAllArticlesAPI.as_view(), name="api_articles_all"),
     path('api/1.0/articles/user/<int:id_user>', GetAllArticlesByUserAPI.as_view(), name="api_user_article"),
     path('api/1.0/article/delete/<int:pk>', ActionArticleAPI.as_view(), name="api_article_delete"),
-    path('api/1.0/categories/all/', GetAllCategoriesAPI.as_view(), name="api_categories_all")
+    path('api/1.0/categories/all/', GetAllCategoriesAPI.as_view(), name="api_categories_all"),
+
+    #  Rutas para la recuperación de password
+    path('api/1.0/sendEmailPassword/', password_reset, name='password_reset'),
+    url(r'^password_reset/done/$', password_reset_done, name='password_reset_done'),
+    url(r'^reset/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,20})/$', password_reset_confirm, name='password_reset_confirm'),
+    url(r'^reset/done/$', password_reset_complete, name='password_reset_complete'),
 ]

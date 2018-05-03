@@ -1,3 +1,4 @@
+from django.core.mail import send_mail
 from django.utils.datetime_safe import datetime
 from django.shortcuts import get_object_or_404
 from django.views.generic import ListView, DetailView
@@ -31,7 +32,7 @@ def contarComentarios(comentarios, articulos):
 class HomeView(ListView):
     model = Article
     template_name = "home.html"
-    paginate_by = ARTICLES_LIMIT # variable global en settings.py
+    paginate_by = ARTICLES_LIMIT  # variable global en settings.py
 
     def get_queryset(self):
         queryset = Article.objects.filter(status='finalizado').filter(pub_date__lte=datetime.now()).order_by(ordenarArticulos(self.request)) # limitamos el número de artículos en esta vista en la variable ARTICLES_LIMIT de settings.py
@@ -69,7 +70,7 @@ class CategoryView(ListView):
     model = Article
     context_object_name = 'category'
     template_name = "category_list.html"
-    paginate_by = ARTICLES_LIMIT # variable global en settings.py
+    paginate_by = ARTICLES_LIMIT  # variable global en settings.py
 
     def get_queryset(self):
         category_selected = self.kwargs.get('category')
