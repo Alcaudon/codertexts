@@ -43,9 +43,10 @@ INSTALLED_APPS = [
     'corsheaders',
     'rest_framework',
     'rest_auth',
+    'django_social_share',
     # Own packages
     'articles',
-    'users',
+    'users'
 ]
 
 MIDDLEWARE = [
@@ -58,6 +59,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'articles.middleware.LoginCheckMiddleware',
 ]
 
 ROOT_URLCONF = 'codertexts.urls'
@@ -73,12 +75,13 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'django.template.context_processors.request',
             ],
         },
     },
 ]
 
-WSGI_APPLICATION = 'codertexts.wsgi.application'
+# WSGI_APPLICATION = 'codertexts.wsgi.application'
 
 
 # Database
@@ -138,7 +141,6 @@ STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 STATICFILES_DIRS = (
-    os.path.join(BASE_DIR, 'articles/templates/angular'),
     os.path.join(BASE_DIR, 'articles/static/images'),
 )
 
@@ -168,13 +170,14 @@ JWT_AUTH = {
     'JWT_EXPIRATION_DELTA': datetime.timedelta(days=30),
     'JWT_ALLOW_REFRESH': True,
     'JWT_REFRESH_EXPIRATION_DELTA': datetime.timedelta(days=40),
-    'JWT_PAYLOAD_HANDLER': 'rest_framework_jwt.utils.jwt_payload_handler'
+    'JWT_PAYLOAD_HANDLER': 'rest_framework_jwt.utils.jwt_payload_handler',
+    'JWT_AUTH_COOKIE': 'token'
 }
 
 # Propiedades para evitar el problema de CORS
 
 CORS_ORIGIN_ALLOW_ALL = False
-CORS_ALLOW_CREDENTIALS = True
+CORS_ALLOW_CREDENTIALS = False
 CORS_ORIGIN_WHITELIST = (
     'http://localhost:4200'
 )
@@ -197,4 +200,17 @@ ARTICLES_LIMIT = 10
 
 
 AUTH_USER_MODEL = 'users.User'
+
+# Configuración correo electrónico
+
+EMAIL_HOST = 'smtp.sendgrid.net'
+EMAIL_PORT = 587
+EMAIL_HOST_USER = 'apikey'
+EMAIL_HOST_PASSWORD = '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'
+EMAIL_USE_TLS = True
+
+# Configuración de la carpeta donde se guardarán las imágenes
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 

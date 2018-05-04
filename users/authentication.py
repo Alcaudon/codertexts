@@ -1,6 +1,8 @@
-from rest_framework import status, exceptions
+from rest_framework import exceptions
 from django.http import HttpResponse
 from rest_framework.authentication import get_authorization_header, BaseAuthentication
+
+
 from users.models import User
 from django.conf import settings
 import jwt

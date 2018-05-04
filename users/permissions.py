@@ -14,7 +14,7 @@ class UserPermissions (BasePermission):
             return True
 
         # Si queremos recuperar el detalle de un usuario debemos ser o superuser o nosotros mismos
-        if request.method == 'GET' and request.user.is_authenticated and view.action == 'retrieve':
+        if request.method == 'GET' and request.user.is_authenticated:
             return True
 
         # Si queremos actualizar o borrar los datos de un usuario debemos ser superuser o nosotros mismos

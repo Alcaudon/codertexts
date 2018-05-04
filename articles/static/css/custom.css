@@ -35,8 +35,6 @@ Fuentes
 Genéricos
 **/
 html {
-    min-height: 100%;
-    position: relative;
     box-sizing: border-box;
  }
  
@@ -86,7 +84,7 @@ html {
 .navbar-inverse .navbar-nav .nav-link:hover {
     color: #EA3A01;
     font-weight: 500;
-    background-color: 1C0113;
+    background-color: #1C0113;
 }
 
 .btn-outline-success {
@@ -114,9 +112,7 @@ html {
 }
 
 .texto-blanco{
-    position: relative;
     font-family: "metropolis-medium";
-    padding: 8px;
     color: white;
     cursor: pointer
 }
@@ -416,11 +412,15 @@ html {
  }
 
  .botonEstrella .fa {
+     color: black;
+ }
+
+ .favorito .fa {
      color: gold;
  }
 
- .botonEstrella:hover {
-    background-color: #1C0113;
+ .botonEstrella:hover{
+    background-color: #A8A8A8;
  }
 
 
@@ -609,9 +609,9 @@ html {
  input[type="tel"],
  input[type="url"],
  input[type="password"],
- textarea{
+ textarea {
     display: block;
-    height: 6rem;
+    height: 3rem;
     padding: 1.5rem 0;
     border: 0;
     outline: none;
@@ -650,7 +650,7 @@ html {
     padding: 0;
  }
  
- .cl-custom-select {
+ .cl-custom-select select {
     -webkit-appearance: none;
     -moz-appearance: none;
     -ms-appearance: none;
@@ -663,12 +663,12 @@ html {
     vertical-align: middle;
  }
  
- .cl-custom-select option {
+ .cl-custom-select select option {
     padding-left: 2rem;
     padding-right: 2rem;
  }
  
- .cl-custom-select ::-ms-expand {
+ .cl-custom-select select::-ms-expand {
     display: none;
  }
  
@@ -710,7 +710,8 @@ html {
  input[type="tel"]:focus,
  input[type="url"]:focus,
  input[type="password"]:focus,
- textarea:focus {
+ textarea:focus,
+ select:focus {
     color: #1C0113;
     border-bottom: 2px solid #EA3A01;
  }
@@ -785,14 +786,14 @@ html {
   * ------------------------------------------------------------------- */
  input:-webkit-autofill, input:-webkit-autofill:hover, input:-webkit-autofill:focus
  input:-webkit-autofill, textarea:-webkit-autofill, textarea:-webkit-autofill:hover
- textarea:-webkit-autofill:focus {
+ textarea:-webkit-autofill:focus, select:-webkit-autofill, select:-webkit-autofill:hover, select:-webkit-autofill:focus {
     -webkit-text-fill-color: #1C0113;
     transition: background-color 5000s ease-in-out 0s;
  }
 
  .full-width {
     width: 100%;
-    margin-right: 10;
+    margin-right: 10px;
  }
 
  /* ===================================================================
@@ -992,9 +993,6 @@ input[type="button"].btn--primary:focus {
  /* Footer */
 
  footer {
-    position: absolute;
-    bottom: 0;
-    width:100%;
     margin-top: 10.2rem;
     padding-bottom: 6rem;
     font-size: 1.5rem;
@@ -1065,7 +1063,7 @@ input[type="button"].btn--primary:focus {
     width: 5.4rem;
     line-height: 5.4rem;
     text-align: center;
-    background-image: url(../images/icons/icon-arrow-up.svg);
+    background-image: url('../images/icons/icon-arrow-up.svg');
     background-color: #1C0113;
     background-repeat: no-repeat;
     background-position: center center;
@@ -1091,3 +1089,70 @@ input[type="button"].btn--primary:focus {
     transform: translate3d(0, 0, 0);
  }
 
+.btn-social-media {
+    display: inline-block;
+    font-weight: 400;
+    line-height: 1.25;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    border: 1px solid transparent;
+    padding: .5rem 1rem .5em 0;
+    font-size: 1rem;
+    border-radius: .25rem;
+    -webkit-transition: all .2s ease-in-out;
+    -o-transition: all .2s ease-in-out;
+    transition: all .2s ease-in-out;
+    margin-right: 1rem;
+    color: white;
+}
+
+.btn-social-media:hover {
+    color: white;
+    text-decoration: none;
+    opacity: 0.75;
+    -webkit-box-shadow: 0 5px 11px 0 rgba(0,0,0,.18), 0 4px 15px 0 rgba(0,0,0,.15);
+    box-shadow: 0 5px 11px 0 rgba(0,0,0,.18), 0 4px 15px 0 rgba(0,0,0,.15);
+}
+
+.btn-social-media > i {
+    color: white;
+}
+
+.btn-fb {
+  background: #3B5998;
+}
+
+.btn-ln {
+  background: #007bb5;
+}
+
+.btn-tw {
+  background: #55ACEE;
+}
+
+.btn-ml {
+  background: #bb0000;
+}
+
+ select{
+    display: block;
+    height: 4rem;
+    padding: 1.5rem 0;
+    border: 0;
+    outline: none;
+    color: #151515;
+    font-family: "metropolis-medium", sans-serif;
+    font-size: 1rem;
+    line-height: 3rem;
+    max-width: 100%;
+    background: transparent;
+    border-bottom: 2px solid rgba(0, 0, 0, 0.5);
+    -webkit-transition: all 0.3s ease-in-out;
+    transition: all 0.3s ease-in-out;
+    width:250px;
+ }

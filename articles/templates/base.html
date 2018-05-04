@@ -3,28 +3,22 @@
 <!DOCTYPE html>
 <html lang="es">
   <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="">
-
-    <title>{% block title %} CoderTexts {% endblock %}</title>
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+      <title>{% block title %}{% endblock %}</title>
+      {% block SEO %}{% endblock %}
 
     <!-- Bootstrap core CSS -->
-
-    <link rel="stylesheet" href="{% static 'styles.bundle.css' %}">
-    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
-    <link rel="stylesheet" href="{% static 'css/custom.css' %}">
-    <link rel="stylesheet" href="{% static 'css/font-awesome/css/font-awesome.min.css' %}">
-    <!-- Custom styles for this template -->
-
+      <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+      <link rel="stylesheet" href="{% static 'css/custom.css' %}">
+      <link rel="stylesheet" href="{% static 'css/font-awesome/css/font-awesome.min.css' %}">
   </head>
   <body>
 
     <!--Barra de navegación-->
     <nav class="navbar navbar-toggleable-md navbar-inverse fixed-top bg-inverse">
     <div class="header__logo">
-        <a class="logo" href="index.html">
+        <a class="logo" href="{%  url 'home_page' %}">
             <img src="{% static 'images/logo-codertexts-peq.png' %}" alt="Homepage">
         </a>
     </div> <!-- end header__logo -->
@@ -35,16 +29,7 @@
       <div class="collapse navbar-collapse" id="navbarCollapse">
         <ul class="navbar-nav mr-auto">
           <li class="nav-item active">
-            <a class="nav-link" href="{%  url "home_page" %}">{% trans 'Inicio' %} <span class="sr-only">(current)</span></a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Javascript</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Python</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">HTML/CSS</a>
+            <a class="nav-link" href="{%  url 'home_page' %}">{% trans 'Inicio' %} <span class="sr-only">(current)</span></a>
           </li>
           {% for category in categories %}
               <li class="nav-item">
@@ -52,30 +37,31 @@
               </li>
           {% endfor %}
         </ul>
-          <form class="customized-select" style="width:200px;" method="POST">
-            <select id="order_list" onchange="changeOrder(this.value)">
-              <option value="">Ordenar</option>
-              <option value="antiguos">Más antiguos: primeros</option>
-              <option value="modernos">Más antiguos: últimos</option>
-            </select>
-          </form>
-          <div class="texto-gris capa-buscador">
-          <i class="fa fa-search"></i>Buscar
-         </div>
+          <div class="texto-blanco capa-buscador">
+            <i class="fa fa-search"></i>Buscar
+          </div>
           {% if user.is_authenticated %}
-            <div class="texto-gris">
-                <i class="fa fa-user"></i><a href="{%  url "angular_home" %}">Área Privada</a>
-            </div>
-            <div class="texto-gris">
-              <i class="fa fa-user"></i><a href="{%  url "logout_page" %}">Salir</a>
-            </div>
+            <a href="http://localhost:4200">
+                <div class="texto-blanco">
+                    <i class="fa fa-home"></i>Área Privada
+                </div>
+            </a>
+            <a href="{%  url 'logout_page' %}">
+                <div class="texto-blanco">
+                    <i class="fa fa-user"></i>Salir
+                </div>
+            </a>
         {% else %}
-            <div class="texto-gris">
-              <i class="fa fa-user"></i><a href="{%  url "login_page" %}">Entrar</a>
-            </div>
-            <div class="texto-gris">
-                  <i class="fa fa-sign-in"></i><a href="{%  url "signup_page" %}">Unirse</a>
-            </div>
+            <a href="http://localhost:4200/login">
+                <div class="texto-blanco">
+                    <i class="fa fa-user"></i>Entrar
+                </div>
+            </a>
+            <a href="{%  url 'signup_page' %}">
+              <div class="texto-blanco">
+                  <i class="fa fa-home"></i>Unirse
+              </div>
+            </a>
         {% endif %}
          <div style="margin-left: 10px">
           {% get_current_language as LANGUAGE_CODE %}
@@ -90,7 +76,7 @@
                 {% csrf_token %}
                 <input name="next" type="hidden" value="{{ redirect_to }}" />
                 <input type="hidden" name="language" id="language" >
-                <input type="submit" value="Go" id="go" hidden="True">
+                <input type="submit" value="Go" id="go" hidden="hidden">
           </form>
          </div>
       </div>
@@ -100,15 +86,10 @@
       {% block content %}{% endblock %}
 
 <!--inicio del footer -->
-   <!-- s-footer
-    ================================================== -->
     <footer class="s-footer">
             <div class="row">
-
                 <div class="col-md-4">
-
                     <h4>Mapa web</h4>
-
                     <ul class="s-footer__linklist">
                         <li><a href="#0">Inicio</a></li>
                       {% for category in categories %}
@@ -117,11 +98,8 @@
                           </li>
                       {% endfor %}
                     </ul>
-
                 </div> <!-- end s-footer__sitelinks -->
-
                 <div class="col-md-4">
-
                     <h4>Hemeroteca</h4>
 
                     <ul class="s-footer__linklist">
@@ -158,18 +136,15 @@
     <!-- Capa de buscador -->
 
     <div id="capaBuscar" class="cover-div">
-            <form role="search" method="get" class="header__search-form" action="#">
+            <form role="search" method="get" class="header__search-form" action="/lookup">
                 <label>
                     <span class="hide-content">Introduce los términos a buscar:</span>
-                    <input type="search" class="first-field" placeholder=">" value="" name="s" title="Buscar:" autocomplete="off">
+                    <input type="search" class="first-field" placeholder=">" value="" name="lookup" title="Buscar:" autocomplete="off">
                 </label>
                 <input type="submit" class="search-submit" value="Search">
             </form>
             <a href="#0" title="Close Search" class="header__overlay-close">Cerrar</a>
      </div>  <!-- end search -->
-    <!-- Bootstrap core JavaScript
-    ================================================== -->
-    <!-- Placed at the end of the document so the pages load faster -->
     </body>
     <script>
         function cambio(valor) {

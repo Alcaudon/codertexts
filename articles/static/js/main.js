@@ -111,3 +111,54 @@ function changeOrder(estado) {
     // there is an official order for the query and the hash if you didn't know.
     location.assign(location.origin + location.pathname + str + location.hash)
 };
+
+/* para mantener el valor del select después de cargar la página */
+var init = function (){
+  //an ugly warning to users without localStorage support
+  if(!window.localStorage){
+    $('body').prepend('Sorry, you browser does not support local storage');
+    return false;
+  }
+  var sel = $('select'),
+      but = $('button');
+
+  var clearSelected = function(){
+      sel.find(':selected').prop('selected', false);
+  }
+
+  if(localStorage.getItem('pref')){
+    var pref = localStorage.getItem('pref');
+    clearSelected();
+    //set the selected state to true on the option localStorage remembers
+    sel.find('#' + pref).prop('selected', true);
+  }
+
+  var setPreference = function(){
+    //remember the ID of the option the user selected
+    localStorage.setItem('pref', sel.find(':selected').attr('id'));
+  };
+
+  var reset = function(){
+    clearSelected();
+    localStorage.setItem('pref', undefined);
+  }
+
+  sel.on('change', setPreference);
+  but.on('click', reset);
+};
+if(document.URL.includes("?order_by")){
+    $(document).ready(init);
+}
+
+
+/* cambio de favorito */
+$(document).ready(function(){
+    $("#favorito").click(function(){
+        if($(this).hasClass("favorito")){
+            $("#favorito").removeClass("favorito")
+        }else{
+            $("#favorito").addClass("favorito")
+        }
+    });
+});
+

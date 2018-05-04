@@ -1,28 +1,27 @@
 {%  extends "base.html" %}
 {% load i18n %}
-{% block title %} Sign Up {% endblock %}
+{% block title %} Signup {% endblock %}
 {% block content %}
     <div class="container">
-    <div class="row ">
-        <div class="col-md-3">&nbsp;</div>
-        <div class="col-md-6">
-          <h3 class="entry__title">{% trans 'Formulario de registro' %}</h3>
-            {%  if messages %}
-                {% for message in messages %}
-                <div class="alert alert-danger">
-                    {{message}}
-                </div>
-                {% endfor %}
-            {% endif %}
-          <form method="post" novalidate>
-              {%  csrf_token %}
-              {{ form.as_p }}
-              <br/>
-              <button type="submit" class="submit btn--primary btn--large full-width">{% trans 'Alta' %}</button>
-          </form> <!-- end form -->
+        <div class="row ">
+            <div class="col-md-3">&nbsp;</div>
+            <div class="col-md-6">
+              <h3 class="entry__title">{% trans 'Formulario de registro' %}</h3>
+                {%  if messages %}
+                    {% for message in messages %}
+                    <div class="alert alert-danger">
+                        {{message}}
+                    </div>
+                    {% endfor %}
+                {% endif %}
+              <form method="post" novalidate>
+                  {%  csrf_token %}
+                  {{ form.as_p }}
+                  <br/>
+                  <button type="submit" class="submit btn--primary btn--large full-width">{% trans 'Alta' %}</button>
+              </form> <!-- end form -->
+            </div>
+            <div class="col-md-3">&nbsp;</div>
         </div>
-        <div class="col-md-3">&nbsp;</div>
-      </div>
     </div>
-
 {% endblock %}

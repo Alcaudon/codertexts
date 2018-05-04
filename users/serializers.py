@@ -3,11 +3,18 @@ from rest_framework.exceptions import ValidationError
 from users.models import User
 
 
+class RecuperarPasswordSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = User
+        fields = ('username', 'first_name', 'last_name', 'email', 'image')
+
+
 class UserSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = User
-        fields = ['id', 'username', 'password', 'first_name', 'last_name', 'email', 'last_login']
+        fields = '__all__'
 
     def validate_username(self, data):
         if self.instance is None and User.objects.filter(username=data).exists():

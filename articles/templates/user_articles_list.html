@@ -1,13 +1,48 @@
 {%  extends "base.html" %}
+{% block title %}Artículos de {{ usuario }}{% endblock %}
+{% block SEO %}
+      <meta name="description" content="Noticias de las últimas tecnologías. ">
+      <link rel="canonical" href="http://bdeveloper.es{%  url 'user_articles_page' username=usuario.username %}">
+      <meta name="keywords" content="Noticias, IT, Project, Web, Developer, Technology, HTML, js, css, python, node, angular">
+      <link rel="alternate" hreflang="x-default" href="http://bdeveloper.es{%  url 'user_articles_page' username=usuario.username %}" />
+      <meta name="robots" content="index,follow">
+      <meta name="author" content="{{ usuario.first_name }} {{ usuario.last_name }}">
+      <meta name="twitter:card" content="Artículos del usuario {{ usuario.username }}" />
+      <meta name="twitter:site" content="@CoderTexts" />
+      <meta name="twitter:title" content="Por la tecnología del usuario {{ usuario.first_name }} {{ usuario.last_name }}" />
+      <meta name="twitter:description" content="Las últimas noticias tecnológicas del usuario {{ usuario.first_name }} {{ usuario.last_name }}" />
+      <meta name="twitter:url" content="http://bdeveloper.es{%  url 'user_articles_page' username=usuario.username %}" />
+      <meta property="og:title" content="Por la tecnología del usuario {{ username.first_name }} {{ username.last_name }}" />
+      <meta property="og:description" content="Las últimas noticias tecnológicas del usuario {{ usuario.first_name }} {{ usuario.last_name }}" />
+      <meta property="og:url" content="http://bdeveloper.es{%  url 'user_articles_page' username=usuario.username %}" />
+      <meta property="og:type" content="website" />
+      <meta property="og:site_name" content="CoderTexts" />
+{% endblock %}
 
 {% block content %}
 
     <div class="container">
         <div class="row">
             <div class="col-md-12">
+                <span class="inicio" id="bread-0" itemref="bread-1" itemscope itemtype="http://data-vocabulary.org/Breadcrumb">
+                    <a href="http://bdeveloper.es" title="P&aacute;gina de inicio de CoderTexts" itemprop="url"><span itemprop="title">Inicio</span></a> >
+                </span>
+                <span class="nivel1" id="bread-1" itemref="bread-2" itemprop="child" itemscope itemtype="http://data-vocabulary.org/Breadcrumb">
+                    <a href="http://bdeveloper.es{%  url 'user_articles_page' username=usuario.username %}" itemprop="url"><span itemprop="title">Usuario {{ usuario.username }}</span></a>
+                </span>
                 <div>
-                    <h2 class="heading-title">Artículos del usuario < {{ usuario }} ></h2>
+          &nbsp;
                 </div>
+                <div>
+                    <h2 class="heading-title">Artículos del usuario < {{ usuario.username }} ></h2>
+                </div>
+                <form class="customized-select" style="width:200px;" method="POST">
+                    <select id="order_list" onchange="changeOrder(this.value)">
+                        <option id="opt1" value="">Ordenar</option>
+                        <option id="opt2" value="antiguos">Más antiguos: primeros</option>
+                        <option id="opt3" value="modernos">Más antiguos: últimos</option>
+                    </select>
+                </form>
             </div>
         </div>
         <div class="row">
