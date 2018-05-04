@@ -1,8 +1,12 @@
+import os
+
+from django.conf import settings
 from django.contrib.auth import authenticate, login as django_login, logout as django_logout
 from django.contrib.auth.forms import PasswordResetForm
 from django.contrib.auth.tokens import default_token_generator
-from django.http import HttpResponseRedirect
-from django.template.response import TemplateResponse
+from django.contrib.staticfiles import finders
+from django.core.files.storage import FileSystemStorage
+from django.http import HttpResponseRedirect, HttpResponseBadRequest
 from django.urls import reverse
 from rest_framework import status
 from rest_framework.decorators import api_view
@@ -160,3 +164,31 @@ def password_reset(request,
             form.save(**opts)
             return Response(data=True, status=status.HTTP_200_OK)
     return Response(data=True, status=status.HTTP_200_OK)
+
+
+class UploadAvatarAPI(APIView):
+    def post(self, request, id_user):
+        if request.FILES['image']:
+            myfile = request.FILES['image']
+            fs = FileSystemStorage()
+            filename = fs.save(id_user + '.jpg', myfile)
+            uploaded_file_url = fs.url(filename)
+            return Response(data=uploaded_file_url, status=status.HTTP_200_OK)
+        else:
+            return HttpResponseBadRequest()
+
+
+class GetAvatarAPI(APIView):
+    def get(self, request, id_user):
+        path = settings.MEDIA_ROOT+'/'+id_user+'.jpg'
+        if os.path.isfile(path):
+            return Response(data=['/media/'+id_user+'.jpg', ], status=status.HTTP_200_OK)
+        else:
+            return Response(data=[], status=status.HTTP_200_OK)
+
+class DeleteAvatarAPI(APIView):
+    def get(self, request, dir, name):
+        path = dir + '/' + name
+        if os.path.isfile(path):
+            os.remove(path)
+        return Response(data=True, status=status.HTTP_200_OK)

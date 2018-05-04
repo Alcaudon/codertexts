@@ -176,7 +176,7 @@ JWT_AUTH = {
 # Propiedades para evitar el problema de CORS
 
 CORS_ORIGIN_ALLOW_ALL = False
-CORS_ALLOW_CREDENTIALS = True
+CORS_ALLOW_CREDENTIALS = False
 CORS_ORIGIN_WHITELIST = (
     'http://localhost:4200'
 )
@@ -204,3 +204,9 @@ EMAIL_PORT = 587
 EMAIL_HOST_USER = 'apikey'
 EMAIL_HOST_PASSWORD = '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'
 EMAIL_USE_TLS = True
+
+# Configuración de la carpeta donde se guardarán las imágenes
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, "media")
+

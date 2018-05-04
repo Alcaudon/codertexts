@@ -1,14 +1,17 @@
 from django.conf.urls import url
+from django.conf.urls.static import static
 from django.contrib import admin
 from django.contrib.auth.views import password_reset_done, password_reset_confirm, password_reset_complete
 from django.urls import path, include
 
 
 from articles.views import HomeView, ArticleDetailView, CategoryView, UserArticlesView
+from codertexts import settings
 from users.api import UserCreateAPI, UserUpdateAPI, UserDeleteAPI, UserListAPI, Logout, RecuperarUsuarioAPI
 from articles.api import NewArticleAPI, GetAllArticlesAPI, GetAllArticlesByUserAPI, \
     ActionArticleAPI, GetAllCategoriesAPI
-from users.views import SignupView, LoginView, logout, VerificarToken, ActualizarToken, ObtenerToken, password_reset
+from users.views import SignupView, LoginView, logout, VerificarToken, ActualizarToken, ObtenerToken, password_reset, \
+    UploadAvatarAPI, GetAvatarAPI, DeleteAvatarAPI
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -48,4 +51,13 @@ urlpatterns = [
     url(r'^password_reset/done/$', password_reset_done, name='password_reset_done'),
     url(r'^reset/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,20})/$', password_reset_confirm, name='password_reset_confirm'),
     url(r'^reset/done/$', password_reset_complete, name='password_reset_complete'),
+
+    #  Rutas para la gestión de imágenes
+    path('api/1.0/subirAvatar/<str:id_user>', UploadAvatarAPI.as_view(), name="upload_avatar_api"),
+    path('api/1.0/getAvatar/<str:id_user>', GetAvatarAPI.as_view(), name="get_avatar_api"),
+    path('api/1.0/deleteAvatar/<str:dir>/<str:name>', DeleteAvatarAPI.as_view(), name="delete_avatar_api"),
+
 ]
+
+if settings.DEBUG:
+  urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
