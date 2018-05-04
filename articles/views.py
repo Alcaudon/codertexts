@@ -1,8 +1,11 @@
-from django.core.mail import send_mail
+from django.core.checks import messages
+from django.http import HttpResponseRedirect
+from django.urls import reverse
 from django.utils.datetime_safe import datetime
-from django.shortcuts import get_object_or_404
+from django.shortcuts import get_object_or_404, render
 from django.views.generic import ListView, DetailView
-
+from django.views.generic.edit import FormMixin
+from articles.forms import NewCommentForm
 from articles.models import Article, Comment, Category
 from codertexts.settings import ARTICLES_LIMIT
 from users.models import User
@@ -48,10 +51,10 @@ class HomeView(ListView):
         context['categories'] = categorias
         return context
 
-
-class ArticleDetailView(DetailView):
+class ArticleDetailView(FormMixin, DetailView):
     model = Article
     context_object_name = 'article'
+    form_class = NewCommentForm
     template_name = "article_detail_page.html"
 
     def get_object(self):
@@ -61,10 +64,21 @@ class ArticleDetailView(DetailView):
     def get_context_data(self, *args, **kwargs):  # función para meter info de los comentarios
         context = super().get_context_data(*args, **kwargs)
         title = self.kwargs.get('title')
-        query = Comment.objects.filter(id_article__slug=title).order_by('-pub_date')
+        query = Comment.objects.filter(id_article__slug=title).order_by('-created_at')
         context['comment'] = query
         return context
 
+    def post(self, request, username, title):
+        form = NewCommentForm(request.POST)
+        if form.is_valid():
+            form.instance.id_article = get_object_or_404(Article, slug = title)
+            form.instance.id_user_comment = get_object_or_404(User, username = request.user)
+            form.instance.pub_date = datetime.now()
+            form.save()
+            return HttpResponseRedirect(reverse('article_detail_page', kwargs={'username': username, 'title': title}))
+        else:
+            messages.error(request, "Vuelva a intentarlo")
+        return HttpResponseRedirect(reverse('article_detail_page', kwargs={'username': username, 'title': title}))
 
 class CategoryView(ListView):
     model = Article
@@ -74,23 +88,17 @@ class CategoryView(ListView):
 
     def get_queryset(self):
         category_selected = self.kwargs.get('category')
-        queryset = Article.objects.filter(status='finalizado').filter(pub_date__lte=datetime.now()).filter(categories__name=category_selected).order_by(ordenarArticulos (self.request))
+        queryset = Article.objects.filter(status='finalizado').filter(pub_date__lte=datetime.now()).filter(categories__name=category_selected).order_by(ordenarArticulos(self.request))
         return queryset
 
-    def get_context_data(self, *args, **kwargs):  # función para meter info de la categoría de la URL /category/<categoria>
+    def get_context_data(self, *args, **kwargs):  # función para meter el número de comentarios en función de la lista e info de la categoría de la URL /category/<categoria>
         context = super().get_context_data(*args, **kwargs)
-        category_selected = self.kwargs.get('category')
-        context['categoria'] = category_selected
-        return context
-
-    def get_context_data(self, *args, **kwargs):  # función para meter el número de comentarios en función de la lista
-        context = super().get_context_data(*args, **kwargs)
-        category_selected = self.kwargs.get('category')
+        categoria = get_object_or_404(Category, name=self.kwargs.get('category'))
         comentarios = Comment.objects.order_by('-pub_date')
-        articulos = Article.objects.filter(status='finalizado').filter(pub_date__lte=datetime.now()).filter(categories__name=category_selected).order_by(ordenarArticulos (self.request))
+        articulos = Article.objects.filter(status='finalizado').filter(pub_date__lte=datetime.now()).filter(categories__name=categoria.name).order_by(ordenarArticulos(self.request))
         context['numofcomments'] = contarComentarios(comentarios, articulos)
+        context['categoria']=categoria
         return context
-
 
 class UserArticlesView(ListView):
     model = Article
@@ -100,21 +108,29 @@ class UserArticlesView(ListView):
 
     def get_queryset(self):
         username_selected = self.kwargs.get('username')
-        queryset = Article.objects.filter(status='finalizado').filter(pub_date__lte=datetime.now()).filter(id_user__username=username_selected).order_by(ordenarArticulos (self.request))
+        queryset = Article.objects.filter(status='finalizado').filter(pub_date__lte=datetime.now()).filter(id_user__username=username_selected).order_by(ordenarArticulos(self.request))
         return queryset
 
-    def get_context_data(self, *args, **kwargs):  # función para meter info del usuario de la URL /username
+    def get_context_data(self, *args, **kwargs):  # función para meter el número de comentarios en función de la lista e info de la categoría de la URL /<username>
         context = super().get_context_data(*args, **kwargs)
-        username_selected = self.kwargs.get('username')
-        context['usuario'] = username_selected
-        return context
-
-    def get_context_data(self, *args, **kwargs):  # función para meter el número de comentarios en función de la lista
-        context = super().get_context_data(*args, **kwargs)
-        username_selected = self.kwargs.get('username')
+        usuario = get_object_or_404(User, username=self.kwargs.get('username'))
         comentarios = Comment.objects.order_by('-pub_date')
-        articulos = Article.objects.filter(status='finalizado').filter(pub_date__lte=datetime.now()).filter(id_user__username=username_selected).order_by(ordenarArticulos (self.request))
+        articulos = Article.objects.filter(status='finalizado').filter(pub_date__lte=datetime.now()).filter(id_user__username=usuario.username).order_by(ordenarArticulos(self.request))
         context['numofcomments'] = contarComentarios(comentarios, articulos)
+        context['usuario'] = usuario
         return context
 
+class LookUpView(ListView): #sin acabar, en desarrollo
+    model = Article
+    context_object_name = 'lookup'
+    template_name = "lookup_list.html"
+    paginate_by = ARTICLES_LIMIT  # variable global en settings.py
+
+    def get_queryset(self, request):
+        busqueda = request.GET.get('lookup')
+        queryset = Article.objects.filter(status='finalizado').filter(pub_date__lte=datetime.now()).filter(title=busqueda).order_by(ordenarArticulos(self.request))
+        return queryset
+
+def angular(request):
+    return render(request, "angular/index.html")
 

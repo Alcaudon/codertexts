@@ -1,5 +1,26 @@
 {%  extends "base.html" %}
 
+{% block title %} CoderTexts {% endblock %}
+
+{% block SEO %}
+      <meta name="description" content="Noticias de las últimas tecnologías. ">
+      <link rel="canonical" href="http://bdeveloper.es">
+      <meta name="keywords" content="Noticias, IT, Project, Web, Developer, Technology, HTML, js, css, python, node, angular">
+      <link rel="alternate" hreflang="x-default" href="http://bdeveloper.es" />
+      <meta name="robots" content="index,follow">
+      <meta name="author" content="Eduardo Aboy, Luis Barriga, Christian Gallego, Javier Lindo, José Luis Pilo">
+      <meta name="twitter:card" content="Página principal" />
+      <meta name="twitter:site" content="@CoderTexts" />
+      <meta name="twitter:title" content="Por la tecnología" />
+      <meta name="twitter:description" content="Las últimas noticias tecnológicas" />
+      <meta name="twitter:url" content="http://bdeveloper.es" />
+      <meta property="og:title" content="Por la tecnología" />
+      <meta property="og:description" content="Las últimas noticias tecnológicas" />
+      <meta property="og:url" content="http://bdeveloper.es" />
+      <meta property="og:type" content="website" />
+      <meta property="og:site_name" content="CoderTexts" />
+{% endblock %}
+
 {% block content %}
     <div class="container">
         <div class="row">
@@ -7,28 +28,17 @@
                 <div>
                     <h4 class="heading-title">Últimos posts</h4>
                 </div>
-            </div>
-            <div class="col-md-2">
-                <div>
-                    <h4 class="heading-title">Filtros</h4>
-                </div>
+                <form class="customized-select" method="POST">
+                    <select id="order_list" onchange="changeOrder(this.value)">
+                        <option id="opt1" value="">Ordenar</option>
+                        <option id="opt2" value="antiguos">Más antiguos: primeros</option>
+                        <option id="opt3" value="modernos">Más antiguos: últimos</option>
+                    </select>
+                </form>
             </div>
         </div>
         <div class="row">
-            <div class="col-md-10" >
                 {% include "articles_list.html" with articles=object_list %}
-            </div>
-            <div class="col-md-2" >
-
-              <form action="orderList" method="post">
-                  <select name="order_list">
-                    <option value="0">Ordenar</option>
-                      <option value="1">Más antiguos: primero</option>
-                    <option value="0">Más antiguos: último</option>
-                  </select>
-              </form>
-            </div>
-
         </div>
         <div>
             {% if page_obj.has_previous %}
