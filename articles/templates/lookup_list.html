@@ -1,0 +1,46 @@
+{%  extends "base.html" %}
+
+{% block content %}
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div>
+                    <h2 class="heading-title">Artículos del usuario < {{ usuario }} ></h2>
+                </div>
+                <form class="customized-select" style="width:200px;" method="POST">
+                    <select id="order_list" onchange="changeOrder(this.value)">
+                        <option id="opt1" value="">Ordenar</option>
+                        <option id="opt2" value="antiguos">Más antiguos: primeros</option>
+                        <option id="opt3" value="modernos">Más antiguos: últimos</option>
+                    </select>
+                </form>
+            </div>
+        </div>
+        <div class="row">
+
+            {% include "articles_list.html" with articles=lookup %}
+
+        </div>
+        <div>
+            {% if page_obj.has_previous %}
+            <a href="{% url 'user_articles_page' %}?page={{ page_obj.previous_page_number }}">
+                <span>&laquo; Previous</span>
+            </a>
+            {% else %}
+            <span>&laquo; Previous</span>
+            {% endif %}
+
+            <span> | </span>
+
+                {% if page_obj.has_next %}
+                <a href="{% url 'user_articles_page' %}?page={{ page_obj.next_page_number }}">
+                    <span>Next &raquo;</span>
+                </a>
+                {% else %}
+                <span>Next &raquo;</span>
+                {% endif %}
+        </div>
+    </div>
+
+{% endblock %}
