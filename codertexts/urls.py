@@ -4,7 +4,7 @@ from django.contrib import admin
 from django.contrib.auth.views import password_reset_done, password_reset_confirm, password_reset_complete
 from django.urls import path, include
 from codertexts import settings
-from articles.views import HomeView, ArticleDetailView, CategoryView, UserArticlesView, angular, LookUpView
+from articles.views import HomeView, ArticleDetailView, CategoryView, UserArticlesView, LookUpView
 from users.api import UserCreateAPI, UserUpdateAPI, UserDeleteAPI, UserListAPI, Logout, RecuperarUsuarioAPI
 from articles.api import NewArticleAPI, GetAllArticlesAPI, GetAllArticlesByUserAPI, \
     ActionArticleAPI, GetAllCategoriesAPI

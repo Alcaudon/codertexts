@@ -131,6 +131,3 @@ class LookUpView(ListView): #sin acabar, en desarrollo
         queryset = Article.objects.filter(status='finalizado').filter(pub_date__lte=datetime.now()).filter(title=busqueda).order_by(ordenarArticulos(self.request))
         return queryset
 
-def angular(request):
-    return render(request, "angular/index.html")
-
