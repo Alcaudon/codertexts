@@ -29,7 +29,3 @@ class SignupForm(UserCreationForm):
                   'facebook_user',
                   'about_me']
 
-
-class LoginForm(forms.Form):
-    username = forms.CharField(widget=TextInput(attrs={'class': 'full-width'}))
-    password = forms.CharField(widget=PasswordInput(attrs={'class': 'full-width'}))

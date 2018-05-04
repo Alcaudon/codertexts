@@ -4,7 +4,6 @@ from django.conf import settings
 from django.contrib.auth import authenticate, login as django_login, logout as django_logout
 from django.contrib.auth.forms import PasswordResetForm
 from django.contrib.auth.tokens import default_token_generator
-from django.contrib.staticfiles import finders
 from django.core.files.storage import FileSystemStorage
 from django.http import HttpResponseRedirect, HttpResponseBadRequest
 from django.urls import reverse
@@ -20,7 +19,7 @@ from rest_framework_jwt.serializers import JSONWebTokenSerializer, VerifyJSONWeb
     RefreshJSONWebTokenSerializer
 from rest_framework_jwt.views import JSONWebTokenAPIView, jwt_response_payload_handler
 
-from users.forms import SignupForm, LoginForm
+from users.forms import SignupForm
 from rest_framework.response import Response
 from rest_framework_jwt.settings import api_settings
 import jwt
@@ -69,27 +68,6 @@ class SignupView(View):
         else:
             messages.error(request, "Vuelva a intentarlo")
         return render(request, "signup_form.html", {'form': form})
-
-
-class LoginView(View):
-
-    def get(self, request):
-        context = {'form': LoginForm()}
-        return render(request, "login.html", context)
-
-    def post(self, request):
-        form = LoginForm(request.POST)
-        if form.is_valid():
-            username = form.cleaned_data.get("username")
-            password = form.cleaned_data.get("password")
-            authenticated_user = authenticate(username=username, password=password)
-            if authenticated_user and authenticated_user.is_active:
-                django_login(request, authenticated_user)
-                redirect_to = request.GET.get("next", "home_page")
-                return redirect(redirect_to)
-            else:
-                form.add_error(None, "Usuario incorrecto o inactivo")
-        return render(request, "login.html", {'form': form})
 
 
 def logout(request):
