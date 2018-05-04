@@ -46,7 +46,7 @@ INSTALLED_APPS = [
     'django_social_share',
     # Own packages
     'articles',
-    'users',
+    'users'
 ]
 
 MIDDLEWARE = [

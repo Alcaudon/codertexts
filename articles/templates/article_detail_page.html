@@ -1,13 +1,40 @@
 {% extends "base.html" %}
 {% load staticfiles%}
-
-{% block head_title %} {{ article.title }} {% endblock %}
+{% load i18n %}
+{% block title %} {{ article.title }} {% endblock %}
+{% block SEO %}
+      <meta name="description" content="{{ article.text|truncatewords:10 }}">
+      <link rel="canonical" href="http://bdeveloper.es{%  url 'article_detail_page' username=article.id_user.username title=article.slug %}">
+      <meta name="keywords" content="Noticias, IT, Project, Web, Developer, Technology, HTML, js, css, python, node, angular">
+      <link rel="alternate" hreflang="x-default" href="http://bdeveloper.es{%  url 'article_detail_page' username=article.id_user.username title=article.slug %}" />
+      <meta name="robots" content="index,follow">
+      <meta name="author" content="{{ article.id_user.first_name }} {{ article.id_user.last_name }}">
+      <meta name="twitter:card" content="Detalle artículo" />
+      <meta name="twitter:site" content="@CoderTexts" />
+      <meta name="twitter:title" content="{{ article.title }}" />
+      <meta name="twitter:description" content="{{ article.title }}. {{ article.text|truncatewords:10 }}" />
+      <meta name="twitter:url" content="http://bdeveloper.es{%  url 'article_detail_page' username=article.id_user.username title=article.slug %}" />
+      <meta property="og:title" content="Por la tecnología" />
+      <meta property="og:description" content="{{ article.title }}. {{ article.text|truncatewords:10 }}" />
+      <meta property="og:url" content="http://bdeveloper.es{%  url 'article_detail_page' username=article.id_user.username title=article.slug %}" />
+      <meta property="og:type" content="website" />
+      <meta property="og:site_name" content="CoderTexts" />
+{% endblock %}
 
 {% block content %}
   <!--Detalle del post-->
   <div class="container">
     <div class="row">
       <div class="col-md-12">
+          <span class="inicio" id="bread-0" itemref="bread-1" itemscope itemtype="http://data-vocabulary.org/Breadcrumb">
+              <a href="http://bdeveloper.es" title="P&aacute;gina de inicio de CoderTexts" itemprop="url"><span itemprop="title">Inicio</span></a> >
+          </span>
+          <span class="nivel1" id="bread-1" itemref="bread-2" itemprop="child" itemscope itemtype="http://data-vocabulary.org/Breadcrumb">
+              <a href="http://bdeveloper.es{%  url 'user_articles_page' username=article.id_user.username %}" itemprop="url"><span itemprop="title">Usuario {{ article.id_user.username }}</span></a> >
+          </span>
+          <span class="nivel2" id="bread-2" itemprop="child" itemscope itemtype="http://data-vocabulary.org/Breadcrumb">
+              <a href="http://bdeveloper.es{%  url 'article_detail_page' username=article.id_user.username title=article.slug %}" itemprop="url"><span itemprop="title">Artículo {{ article.title }}</span></a>
+          </span>
         <div>
           &nbsp;
         </div>
@@ -22,7 +49,7 @@
             <div class="entry__date col-md">
               {{ article.pub_date | date:"d/m/Y" }}
 
-                  <span class="botonEstrella">
+                  <span id="favorito" class="botonEstrella">
                     <a href="#"  alt="Agregar a favoritos" ><i class="fa fa-star"></i></a>
                   </span>
 
@@ -98,35 +125,7 @@
                   <!-- Bloque y formulario para añadir un nuevo comentario
                   ================================================== -->
           {% if user.is_authenticated %}
-            <div class="respond">
-
-            <h3 class="entry__title">Añadir comentario</h3>
-
-            <form name="formulario" id="formulario" method="post" action="">
-                <fieldset>
-
-                    <div class="form-field">
-                            <input name="cName" type="text" id="cName" class="full-width" placeholder="Tu nombre" value="">
-                    </div>
-
-                    <div class="form-field">
-                            <input name="cEmail" type="text" id="cEmail" class="full-width" placeholder="Tu email" value="">
-                    </div>
-
-                    <div class="form-field">
-                            <input name="cWebsite" type="text" id="cWebsite" class="full-width" placeholder="Website" value="">
-                    </div>
-
-                    <div class="message form-field">
-                        <textarea name="cMessage" id="cMessage" class="full-width" placeholder="Tu mensaje"></textarea>
-                    </div>
-
-                    <button type="submit" class="submit btn--primary btn--large full-width">Enviar</button>
-
-                </fieldset>
-            </form> <!-- end form -->
-
-            </div> <!-- end respond -->
+            {% include "new_comment.html" %}
             {% endif %}
        </div> <!-- end comments-wrap -->
      </div>
