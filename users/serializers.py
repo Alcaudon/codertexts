@@ -30,7 +30,6 @@ class UserSerializer(serializers.ModelSerializer):
             raise ValidationError("El correo de usuario está ya en uso.")
         return data
 
-
     def create(self, validated_data):
         user = super(UserSerializer, self).create(validated_data)
         user.set_password(validated_data.get('password'))
