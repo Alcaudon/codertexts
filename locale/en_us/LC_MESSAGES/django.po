@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-04-15 20:23+0200\n"
+"POT-Creation-Date: 2018-05-06 13:43+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,17 +17,26 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: .\codertexts\settings.py:115
+#: .\codertexts\settings.py:121
 msgid "en"
-msgstr "en"
+msgstr ""
 
-#: .\codertexts\settings.py:116
+#: .\codertexts\settings.py:122
 msgid "es"
-msgstr "es"
+msgstr ""
 
-#: .\users\templates\login.html
-msgid "Login de usuario"
-msgstr "User Login"
+#: .\users\templates\login.html:10
+msgid "Ingreso de usuario"
+msgstr ""
 
+#: .\users\templates\login.html:23
 msgid "Entrar"
-msgstr "Login"
+msgstr ""
+
+#: .\users\templates\signup_form.html:9
+msgid "Formulario de registro"
+msgstr ""
+
+#: .\users\templates\signup_form.html:21
+msgid "Alta"
+msgstr ""
