@@ -1,4 +1,5 @@
 from django.core.checks import messages
+from django.db.models import Lookup
 from django.http import HttpResponseRedirect
 from django.urls import reverse
 from django.utils.datetime_safe import datetime
@@ -7,7 +8,7 @@ from django.views.generic import ListView, DetailView
 from django.views.generic.edit import FormMixin
 from articles.forms import NewCommentForm
 from articles.models import Article, Comment, Category
-from codertexts.settings import ARTICLES_LIMIT
+from codertexts.settings import ARTICLES_LIMIT, PAGINATION_LIMIT
 from users.models import User
 
 
@@ -35,10 +36,10 @@ def contarComentarios(comentarios, articulos):
 class HomeView(ListView):
     model = Article
     template_name = "home.html"
-    paginate_by = ARTICLES_LIMIT  # variable global en settings.py
+    paginate_by = PAGINATION_LIMIT  # variable global en settings.py
 
     def get_queryset(self):
-        queryset = Article.objects.filter(status='finalizado').filter(pub_date__lte=datetime.now()).order_by(ordenarArticulos(self.request)) # limitamos el número de artículos en esta vista en la variable ARTICLES_LIMIT de settings.py
+        queryset = Article.objects.filter(status='finalizado').filter(pub_date__lte=datetime.now()).order_by(ordenarArticulos(self.request))[:ARTICLES_LIMIT] # limitamos el número de artículos en esta vista en la variable ARTICLES_LIMIT de settings.py
         return queryset
         # artículos publicados, con fecha de publicación en el pasado y ordenadas de más reciente a más antigua
 
@@ -65,6 +66,8 @@ class ArticleDetailView(FormMixin, DetailView):
         context = super().get_context_data(*args, **kwargs)
         title = self.kwargs.get('title')
         query = Comment.objects.filter(id_article__slug=title).order_by('-created_at')
+        categorias = Category.objects.order_by('name')
+        context['categories'] = categorias
         context['comment'] = query
         return context
 
@@ -84,50 +87,64 @@ class CategoryView(ListView):
     model = Article
     context_object_name = 'category'
     template_name = "category_list.html"
-    paginate_by = ARTICLES_LIMIT  # variable global en settings.py
+    paginate_by = PAGINATION_LIMIT  # variable global en settings.py
 
     def get_queryset(self):
         category_selected = self.kwargs.get('category')
-        queryset = Article.objects.filter(status='finalizado').filter(pub_date__lte=datetime.now()).filter(categories__name=category_selected).order_by(ordenarArticulos(self.request))
+        queryset = Article.objects.filter(status='finalizado').filter(pub_date__lte=datetime.now()).filter(categories__name=category_selected).order_by(ordenarArticulos(self.request))[:ARTICLES_LIMIT]
         return queryset
 
     def get_context_data(self, *args, **kwargs):  # función para meter el número de comentarios en función de la lista e info de la categoría de la URL /category/<categoria>
         context = super().get_context_data(*args, **kwargs)
         categoria = get_object_or_404(Category, name=self.kwargs.get('category'))
         comentarios = Comment.objects.order_by('-pub_date')
-        articulos = Article.objects.filter(status='finalizado').filter(pub_date__lte=datetime.now()).filter(categories__name=categoria.name).order_by(ordenarArticulos(self.request))
+        articulos = Article.objects.filter(status='finalizado').filter(pub_date__lte=datetime.now()).filter(categories__name=categoria.name).order_by(ordenarArticulos(self.request))[:ARTICLES_LIMIT]
+        categorias = Category.objects.order_by('name')
         context['numofcomments'] = contarComentarios(comentarios, articulos)
         context['categoria']=categoria
+        context['categories'] = categorias
         return context
 
 class UserArticlesView(ListView):
     model = Article
     context_object_name = 'username'
     template_name = "user_articles_list.html"
-    paginate_by = ARTICLES_LIMIT # variable global en settings.py
+    paginate_by = PAGINATION_LIMIT # variable global en settings.py
 
     def get_queryset(self):
         username_selected = self.kwargs.get('username')
-        queryset = Article.objects.filter(status='finalizado').filter(pub_date__lte=datetime.now()).filter(id_user__username=username_selected).order_by(ordenarArticulos(self.request))
+        queryset = Article.objects.filter(status='finalizado').filter(pub_date__lte=datetime.now()).filter(id_user__username=username_selected).order_by(ordenarArticulos(self.request))[:ARTICLES_LIMIT]
         return queryset
 
     def get_context_data(self, *args, **kwargs):  # función para meter el número de comentarios en función de la lista e info de la categoría de la URL /<username>
         context = super().get_context_data(*args, **kwargs)
         usuario = get_object_or_404(User, username=self.kwargs.get('username'))
         comentarios = Comment.objects.order_by('-pub_date')
-        articulos = Article.objects.filter(status='finalizado').filter(pub_date__lte=datetime.now()).filter(id_user__username=usuario.username).order_by(ordenarArticulos(self.request))
+        articulos = Article.objects.filter(status='finalizado').filter(pub_date__lte=datetime.now()).filter(id_user__username=usuario.username).order_by(ordenarArticulos(self.request))[:ARTICLES_LIMIT]
+        categorias = Category.objects.order_by('name')
         context['numofcomments'] = contarComentarios(comentarios, articulos)
         context['usuario'] = usuario
+        context['categories'] = categorias
         return context
 
-class LookUpView(ListView): #sin acabar, en desarrollo
+class LookingUpView(ListView, Lookup): #buscador que contiene las palabras que se introducen, es sensible a tildes
     model = Article
     context_object_name = 'lookup'
     template_name = "lookup_list.html"
-    paginate_by = ARTICLES_LIMIT  # variable global en settings.py
+    paginate_by = PAGINATION_LIMIT # variable global en settings.py
 
-    def get_queryset(self, request):
-        busqueda = request.GET.get('lookup')
-        queryset = Article.objects.filter(status='finalizado').filter(pub_date__lte=datetime.now()).filter(title=busqueda).order_by(ordenarArticulos(self.request))
+    def get_queryset(self):
+        busqueda = self.request.GET.get('lookup')
+        queryset = Article.objects.filter(status='finalizado').filter(pub_date__lte=datetime.now()).filter(title__icontains=busqueda).order_by(ordenarArticulos(self.request))[:ARTICLES_LIMIT]
         return queryset
 
+    def get_context_data(self, *args, **kwargs):  # función para meter el número de comentarios en función de la lista e info de la categoría de la URL /<username>
+        context = super().get_context_data(*args, **kwargs)
+        busqueda = self.request.GET.get('lookup')
+        categorias = Category.objects.order_by('name')
+        context['busqueda'] = busqueda
+        context['categories'] = categorias
+        return context
+
+#def angular(request):
+#    return render(request, "angular/index.html")

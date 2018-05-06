@@ -198,8 +198,12 @@ LOCALE_PATHS = (
 
 ARTICLES_LIMIT = 10
 
-
 AUTH_USER_MODEL = 'users.User'
+
+# Limitación paginación de los listados
+
+PAGINATION_LIMIT = 2
+
 
 # Configuración correo electrónico
 
