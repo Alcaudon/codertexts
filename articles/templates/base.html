@@ -31,9 +31,9 @@
           <li class="nav-item active">
             <a class="nav-link" href="{%  url 'home_page' %}">{% trans 'Inicio' %} <span class="sr-only">(current)</span></a>
           </li>
-          {% for category in categories %}
+          {% for category in categories|slice:":10" %}
               <li class="nav-item">
-                <a class="nav-link" href="#">{{ category.name }}</a>
+                <a class="nav-link" href="{%  url 'category_page' category=category.name %}" title="{{ category.name }}">{{ category.name }}</a>
               </li>
           {% endfor %}
         </ul>
@@ -92,9 +92,9 @@
                     <h4>Mapa web</h4>
                     <ul class="s-footer__linklist">
                         <li><a href="#0">Inicio</a></li>
-                      {% for category in categories %}
+                      {% for category in categories|slice:":5" %}
                           <li>
-                            <a  href="#">{{ category.name }}</a>
+                            <a  href="{%  url 'category_page' category=category.name %}" title="{{ category.name }}">{{ category.name }}</a>
                           </li>
                       {% endfor %}
                     </ul>
@@ -117,10 +117,10 @@
                     <h4>Redes sociales</h4>
 
                     <ul class="s-footer__linklist">
-                        <li><a href="#0">Facebook</a></li>
-                        <li><a href="#0">Instagram</a></li>
-                        <li><a href="#0">Twitter</a></li>
-                        <li><a href="#0">LinkedIn</a></li>
+                        <li><a href="https://facebook.com/CoderTexts">Facebook</a></li>
+                        <li><a href="https://instagram.com/CoderTexts">Instagram</a></li>
+                        <li><a href="https://twitter.com/CoderTexts">Twitter</a></li>
+                        <li><a href="https://linkedin.com/CoderTexts">LinkedIn</a></li>
                     </ul>
                 </div> <!-- end s-footer__social -->
             </div>
@@ -136,15 +136,16 @@
     <!-- Capa de buscador -->
 
     <div id="capaBuscar" class="cover-div">
-            <form role="search" method="get" class="header__search-form" action="/lookup">
-                <label>
-                    <span class="hide-content">Introduce los términos a buscar:</span>
-                    <input type="search" class="first-field" placeholder=">" value="" name="lookup" title="Buscar:" autocomplete="off">
-                </label>
-                <input type="submit" class="search-submit" value="Search">
-            </form>
-            <a href="#0" title="Close Search" class="header__overlay-close">Cerrar</a>
-     </div>  <!-- end search -->
+        <form role="search" method="get" class="header__search-form" action="{%  url 'look_up_page' %}">
+            <label>
+                <span class="hide-content">Introduce los términos a buscar:</span>
+                <input type="search" class="first-field" placeholder=">" value="" name="lookup" title="Buscar:" autocomplete="off">
+            </label>
+            <input type="submit" class="search-submit" value="Search">
+        </form>
+        <a href="#0" title="Close Search" class="header__overlay-close">Cerrar</a>
+    </div>
+    <!-- end search -->
     </body>
     <script>
         function cambio(valor) {

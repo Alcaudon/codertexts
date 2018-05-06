@@ -1,10 +1,10 @@
 from django.conf.urls import url
 from django.conf.urls.static import static
 from django.contrib import admin
-from django.contrib.auth.views import password_reset_done, password_reset_confirm, password_reset_complete
-from django.urls import path, include
 from codertexts import settings
-from articles.views import HomeView, ArticleDetailView, CategoryView, UserArticlesView, LookUpView
+from django.contrib.auth.views import password_reset_done, password_reset_confirm, password_reset_complete, LoginView
+from django.urls import path, include
+from articles.views import HomeView, ArticleDetailView, CategoryView, UserArticlesView, LookingUpView
 from users.api import UserCreateAPI, UserUpdateAPI, UserDeleteAPI, UserListAPI, Logout, RecuperarUsuarioAPI
 from articles.api import NewArticleAPI, GetAllArticlesAPI, GetAllArticlesByUserAPI, \
     ActionArticleAPI, GetAllCategoriesAPI
@@ -18,12 +18,11 @@ urlpatterns = [
     path('api/1.0/token-obtain/', ObtenerToken.as_view()),
     path('api/1.0/token-refresh/', ActualizarToken.as_view()),
     path('api/1.0/token-verify/', VerificarToken.as_view()),
-
-
+    path('articles/lookup/', LookingUpView.as_view(), name="look_up_page"),
     path('articles/category/<str:category>', CategoryView.as_view(), name="category_page"),
     path('articles/<str:username>/<slug:title>', ArticleDetailView.as_view(), name="article_detail_page"),
     path('articles/<str:username>/', UserArticlesView.as_view(), name="user_articles_page"),
-    path('articles/lookup/', LookUpView.as_view(), name="look_up_page"),
+    path('login/', LoginView.as_view(), name="login_page"),
     path('logout/', logout, name="logout_page"),
     path('signup/', SignupView.as_view(), name="signup_page"),
     path('', HomeView.as_view(), name="home_page"),

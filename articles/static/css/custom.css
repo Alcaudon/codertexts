@@ -1015,7 +1015,6 @@ input[type="button"].btn--primary:focus {
     padding-top: 2rem;
     padding-left: 2rem;
     color: #EA3A01;
-    position: relative;
  }
 
  .s-footer__linklist {
