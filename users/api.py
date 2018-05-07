@@ -1,5 +1,5 @@
 from rest_framework import status
-from rest_framework.generics import CreateAPIView, UpdateAPIView, DestroyAPIView, ListAPIView
+from rest_framework.generics import CreateAPIView, UpdateAPIView, DestroyAPIView
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
@@ -8,21 +8,8 @@ from django.db.models import Q
 
 from users.authentication import TokenAuthentication
 from users.models import User
-from users.permissions import UserPermissions, IsSuperUser
+from users.permissions import UserPermissions
 from users.serializers import UserSerializer, RecuperarPasswordSerializer
-
-
-class UserListAPI(ListAPIView):
-
-    """Lista los usuarios del sistema"""
-    serializer_class = UserSerializer
-    permission_classes = [IsSuperUser]
-    authentication_classes = [TokenAuthentication]
-
-    def get_queryset(self):
-        id_user = self.request.user.id
-        queryset = User.objects.filter(id=id_user)
-        return queryset
 
 
 class UserDetailAPI(APIView):
@@ -30,8 +17,9 @@ class UserDetailAPI(APIView):
     """Devuelve los datos de un usuario del sistema"""
     permission_classes = [UserPermissions]
 
-    def get(self, request, pk):
-        usuario = User.objects.filter(id=pk)
+    def get(self, request):
+        id_user = self.request.user.id
+        usuario = User.objects.filter(id=id_user)
         if usuario:
             serializer = UserSerializer(usuario, many=True)
             return Response(data=serializer.data, status=status.HTTP_200_OK, content_type="application/json")
