@@ -59,7 +59,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'articles.middleware.LoginCheckMiddleware',
+    #'articles.middleware.LoginCheckMiddleware',
 ]
 
 ROOT_URLCONF = 'codertexts.urls'
@@ -218,3 +218,4 @@ EMAIL_USE_TLS = True
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 
+LOCALE_PATHS = [os.path.join(BASE_DIR, "locale/")]
