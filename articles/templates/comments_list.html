@@ -1,4 +1,5 @@
 {% load staticfiles%}
+{% load i18n %}
 <!-- comment list -->
                   <ol class="commentlist">
                       {% for comment in comments %}
@@ -16,7 +17,7 @@
 
                                   <div class="comment__meta">
                                       <time class="comment__time">{{ comment.pub_date }}</time>
-                                      <a class="reply" href="#0">Responder</a>
+                                      <a class="reply" href="#0">{% trans 'Responder' %}</a>
                                   </div>
                               </div>
 

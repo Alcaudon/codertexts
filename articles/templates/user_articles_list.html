@@ -1,4 +1,5 @@
 {%  extends "base.html" %}
+{% load i18n %}
 {% block title %}Artículos de {{ usuario }}{% endblock %}
 {% block SEO %}
       <meta name="description" content="Noticias de las últimas tecnologías. ">
@@ -25,22 +26,22 @@
         <div class="row">
             <div class="col-md-12">
                 <span class="inicio" id="bread-0" itemref="bread-1" itemscope itemtype="http://data-vocabulary.org/Breadcrumb">
-                    <a href="http://bdeveloper.es" title="P&aacute;gina de inicio de CoderTexts" itemprop="url"><span itemprop="title">Inicio</span></a> >
+                    <a href="http://bdeveloper.es" title="P&aacute;gina de inicio de CoderTexts" itemprop="url"><span itemprop="title">{% trans 'Inicio' %}</span></a> >
                 </span>
                 <span class="nivel1" id="bread-1" itemref="bread-2" itemprop="child" itemscope itemtype="http://data-vocabulary.org/Breadcrumb">
-                    <a href="http://bdeveloper.es{%  url 'user_articles_page' username=usuario.username %}" itemprop="url"><span itemprop="title">Usuario {{ usuario.username }}</span></a>
+                    <a href="http://bdeveloper.es{%  url 'user_articles_page' username=usuario.username %}" itemprop="url"><span itemprop="title">{% trans 'Usuario' %} {{ usuario.username }}</span></a>
                 </span>
                 <div>
           &nbsp;
                 </div>
                 <div>
-                    <h2 class="heading-title">Artículos del usuario < {{ usuario.username }} ></h2>
+                    <h2 class="heading-title">{% trans 'Artículos del usuario' %} < {{ usuario.username }} ></h2>
                 </div>
                 <form class="customized-select" style="width:200px;" method="POST">
                     <select id="order_list" onchange="changeOrder(this.value)">
-                        <option id="opt1" value="">Ordenar</option>
-                        <option id="opt2" value="antiguos">Más antiguos: primeros</option>
-                        <option id="opt3" value="modernos">Más antiguos: últimos</option>
+                        <option id="opt1" value="">{% trans 'Ordenar' %}</option>
+                        <option id="opt2" value="antiguos">{% trans 'Más antiguos: primeros' %}</option>
+                        <option id="opt3" value="modernos">{% trans 'Más antiguos: últimos' %}</option>
                     </select>
                 </form>
             </div>
@@ -53,20 +54,20 @@
         <div>
             {% if page_obj.has_previous %}
             <a href="{% url 'user_articles_page' %}?page={{ page_obj.previous_page_number }}">
-                <span>&laquo; Previous</span>
+                <span>&laquo; {% trans 'Anterior' %}</span>
             </a>
             {% else %}
-            <span>&laquo; Previous</span>
+            <span>&laquo; {% trans 'Anterior' %}</span>
             {% endif %}
 
             <span> | </span>
 
                 {% if page_obj.has_next %}
                 <a href="{% url 'user_articles_page' %}?page={{ page_obj.next_page_number }}">
-                    <span>Next &raquo;</span>
+                    <span>{% trans 'Siguiente' %} &raquo;</span>
                 </a>
                 {% else %}
-                <span>Next &raquo;</span>
+                <span>{% trans 'Siguiente' %}Next &raquo;</span>
                 {% endif %}
         </div>
     </div>

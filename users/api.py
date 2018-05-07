@@ -47,7 +47,7 @@ class UserUpdateAPI (UpdateAPIView):
 
     queryset = User.objects.all()
     serializer_class = UserSerializer
-    authentication_classes = [TokenAuthentication]
+
     permission_classes = [UserPermissions]
 
 
