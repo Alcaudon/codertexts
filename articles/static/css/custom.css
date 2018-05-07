@@ -1140,7 +1140,7 @@ input[type="button"].btn--primary:focus {
 
  select{
     display: block;
-    height: 4rem;
+    height: 5rem;
     padding: 1.5rem 0;
     border: 0;
     outline: none;

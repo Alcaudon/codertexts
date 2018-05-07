@@ -63,11 +63,11 @@ msgstr "Exit"
 
 #: .\articles\templates\base.html:57
 msgid "Entrar"
-msgstr "Enter"
+msgstr "Sign In"
 
 #: .\articles\templates\base.html:62
 msgid "Unirse"
-msgstr "Join"
+msgstr "Sign Up"
 
 #: .\articles\templates\base.html:92
 msgid "Mapa web"
