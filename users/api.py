@@ -19,7 +19,7 @@ class UserListAPI(ListAPIView):
     permission_classes = [UserPermissions]
 
     def get_queryset(self):
-        id_user = 1
+        id_user = self.request.user.id
         queryset = User.objects.filter(id=id_user)
         return queryset
 
