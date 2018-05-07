@@ -1,5 +1,5 @@
 from rest_framework import status
-from rest_framework.generics import CreateAPIView, UpdateAPIView, DestroyAPIView, ListAPIView
+from rest_framework.generics import CreateAPIView, UpdateAPIView, DestroyAPIView
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
@@ -12,19 +12,21 @@ from users.permissions import UserPermissions
 from users.serializers import UserSerializer, RecuperarPasswordSerializer
 
 
+class UserDetailAPI(APIView):
 
-class UserListAPI(ListAPIView):
-
-    serializer_class = UserSerializer
+    """Devuelve los datos de un usuario del sistema"""
     permission_classes = [UserPermissions]
 
-    def get_queryset(self):
+    def get(self, request):
         id_user = self.request.user.id
-        queryset = User.objects.filter(id=id_user)
-        return queryset
+        usuario = User.objects.filter(id=id_user)
+        if usuario:
+            serializer = UserSerializer(usuario, many=True)
+            return Response(data=serializer.data, status=status.HTTP_200_OK, content_type="application/json")
+        return Response(data=False, status=status.HTTP_200_OK)
 
 class UserCreateAPI(CreateAPIView):
-
+    """Crear un usuario"""
     queryset = User.objects.all()
     serializer_class = UserSerializer
     permission_classes = [UserPermissions]
@@ -46,7 +48,7 @@ class UserDeleteAPI (DestroyAPIView):
     permission_classes = [UserPermissions]
 
 
-class RecuperarUsuarioAPI(APIView):
+class RecuperarPasswordAPI(APIView):
 
     def post(self, request):
         usuario = User.objects.filter(Q(username=request.data['user']) | Q(email=request.data['user']))
