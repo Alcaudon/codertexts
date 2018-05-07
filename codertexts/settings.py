@@ -190,10 +190,6 @@ CORS_ORIGIN_WHITELIST = (
 )
 """
 
-LOCALE_PATHS = (
- os.path.join(BASE_DIR, "locale"),
-)
-
 # Limitación de los artículos a mostrar
 
 ARTICLES_LIMIT = 10
@@ -218,4 +214,6 @@ EMAIL_USE_TLS = True
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 
-LOCALE_PATHS = [os.path.join(BASE_DIR, "locale/")]
+LOCALE_PATHS = (
+    os.path.join(BASE_DIR, 'locale'),
+)
