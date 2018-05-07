@@ -1,4 +1,5 @@
 {%  extends "base.html" %}
+{% load i18n %}
 {% block SEO %}
       <meta name="description" content="Noticias de las últimas tecnologías. ">
       <link rel="canonical" href="http://bdeveloper.es{%  url 'category_page' category=categoria.name %}">
@@ -24,10 +25,10 @@
         <div class="row">
             <div class="col-md-12">
                 <span class="inicio" id="bread-0" itemref="bread-1" itemscope itemtype="http://data-vocabulary.org/Breadcrumb">
-                    <a href="http://bdeveloper.es" title="P&aacute;gina de inicio de CoderTexts" itemprop="url"><span itemprop="title">Inicio</span></a> >
+                    <a href="http://bdeveloper.es" title="P&aacute;gina de inicio de CoderTexts" itemprop="url"><span itemprop="title">{% trans 'Inicio' %}</span></a> >
                 </span>
                 <span class="nivel1" id="bread-1" itemref="bread-2" itemprop="child" itemscope itemtype="http://data-vocabulary.org/Breadcrumb">
-                    <a href="http://bdeveloper.es{%  url 'category_page' category=categoria.name %}" itemprop="url"><span itemprop="title">Categoría {{ categoria.name }}</span></a>
+                    <a href="http://bdeveloper.es{%  url 'category_page' category=categoria.name %}" itemprop="url"><span itemprop="title">{% trans 'Categoría' %} {{ categoria.name }}</span></a>
                 </span>
                 <div>
           &nbsp;
@@ -37,9 +38,9 @@
                 </div>
                 <form class="customized-select" style="width:200px;" method="POST">
                     <select id="order_list" onchange="changeOrder(this.value)">
-                        <option id="opt1" value="">Ordenar</option>
-                        <option id="opt2" value="antiguos">Más antiguos: primeros</option>
-                        <option id="opt3" value="modernos">Más antiguos: últimos</option>
+                        <option id="opt1" value="">{% trans 'Ordenar:' %}</option>
+                        <option id="opt2" value="antiguos">{% trans 'Más antiguos: primeros' %}</option>
+                        <option id="opt3" value="modernos">{% trans 'Más antiguos: últimos' %}</option>
                     </select>
                 </form>
             </div>

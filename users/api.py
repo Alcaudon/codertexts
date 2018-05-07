@@ -12,12 +12,16 @@ from users.permissions import UserPermissions
 from users.serializers import UserSerializer, RecuperarPasswordSerializer
 
 
+
 class UserListAPI(ListAPIView):
 
-    queryset = User.objects.all()
     serializer_class = UserSerializer
     permission_classes = [UserPermissions]
 
+    def get_queryset(self):
+        id_user = 1
+        queryset = User.objects.filter(id=id_user)
+        return queryset
 
 class UserCreateAPI(CreateAPIView):
 
@@ -30,7 +34,7 @@ class UserUpdateAPI (UpdateAPIView):
 
     queryset = User.objects.all()
     serializer_class = UserSerializer
-    authentication_classes = [TokenAuthentication]
+
     permission_classes = [UserPermissions]
 
 

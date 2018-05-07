@@ -27,13 +27,13 @@
     <div class="row">
       <div class="col-md-12">
           <span class="inicio" id="bread-0" itemref="bread-1" itemscope itemtype="http://data-vocabulary.org/Breadcrumb">
-              <a href="http://bdeveloper.es" title="P&aacute;gina de inicio de CoderTexts" itemprop="url"><span itemprop="title">Inicio</span></a> >
+              <a href="http://bdeveloper.es" title="P&aacute;gina de inicio de CoderTexts" itemprop="url"><span itemprop="title">{% trans 'Inicio' %}</span></a> >
           </span>
           <span class="nivel1" id="bread-1" itemref="bread-2" itemprop="child" itemscope itemtype="http://data-vocabulary.org/Breadcrumb">
-              <a href="http://bdeveloper.es{%  url 'user_articles_page' username=article.id_user.username %}" itemprop="url"><span itemprop="title">Usuario {{ article.id_user.username }}</span></a> >
+              <a href="http://bdeveloper.es{%  url 'user_articles_page' username=article.id_user.username %}" itemprop="url"><span itemprop="title">{% trans 'Usuario' %} {{ article.id_user.username }}</span></a> >
           </span>
           <span class="nivel2" id="bread-2" itemprop="child" itemscope itemtype="http://data-vocabulary.org/Breadcrumb">
-              <a href="http://bdeveloper.es{%  url 'article_detail_page' username=article.id_user.username title=article.slug %}" itemprop="url"><span itemprop="title">Artículo {{ article.title }}</span></a>
+              <a href="http://bdeveloper.es{%  url 'article_detail_page' username=article.id_user.username title=article.slug %}" itemprop="url"><span itemprop="title">{% trans 'Artículo' %} {{ article.title }}</span></a>
           </span>
         <div>
           &nbsp;
@@ -56,7 +56,7 @@
             </div>
             <div>
               <p class="s-content__tags">
-                <span>Categorías</span>
+                <span>{% trans 'Categorías' %}</span>
                 <span class="s-content__tag-list">
                     {% for category in article.categories.all %}
                         <a href="{%  url 'category_page' category=category.name %}" title="{{ category.name }}">{{ category.name }}</a>
@@ -100,7 +100,7 @@
         <!-- fin del artículo -->
     </div>
       <div class="container social-media">
-          <p>Comparte el artículo</p>
+          <p>{% trans 'Comparte el artículo' %}</p>
           <div class="row">
             {% load social_share %}
               {% post_to_facebook object_or_url "Facebook" %}
@@ -116,7 +116,7 @@
         <div class="comments-wrap">
             <div id="comments" class="row">
               <div class="col-md-12">
-                  <h3 class="h2" id="comentarios">{{ comment|length }} Comentarios</h3>
+                  <h3 class="h2" id="comentarios">{{ comment|length }} {% trans 'Comentarios' %}</h3>
           {% include "comments_list.html" with comments=comment %}
                   </div>
           </div> <!-- end row comments -->

@@ -1,5 +1,6 @@
+{% load i18n %}
 <div class="respond">
-    <h3 class="entry__title">Nuevo comentario</h3>
+    <h3 class="entry__title">{% trans 'Nuevo comentario' %}</h3>
     <form name="formulario" id="formulario" method="post" action="">
         <fieldset>
             <div class="form-field">
@@ -7,7 +8,7 @@
                 {{ form.as_p }}
             </div>
             <br/>
-            <button type="submit" class="submit btn--primary btn--large full-width">Enviar</button>
+            <button type="submit" class="submit btn--primary btn--large full-width">{% trans 'Enviar' %}</button>
         </fieldset>
     </form> <!-- end form -->
 </div> <!-- end respond -->
