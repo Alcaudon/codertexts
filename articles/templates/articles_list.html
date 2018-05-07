@@ -5,7 +5,13 @@
     <div class="card">
         <div class="entry__thumb">
             <a href="{%  url 'article_detail_page' username=article.id_user title=article.slug %}" class="entry__thumb-link" title="{{ article.title }}">
-                <img src="{{ article.image }}" alt="">
+                {% if article.image %}
+              <img style="float:left; padding-right: 20px" src="{{ article.image }}" alt="">
+              {% elif article.video %}
+              <video width="320" height="240" controls>
+                  <source src="{{ article.video }}">
+              </video>
+              {% endif %}
             </a>
         </div>
         <div class="card-block">
@@ -21,7 +27,9 @@
                 </div>
                 <div class="entry__excerpt">
                     <p>
-                        {{ article.text|truncatewords:5 }}
+                        {% autoescape off %}
+                            {{ article.text|truncatewords:30 }}
+                        {% endautoescape %}
                     </p>
                 </div>
                 <div class="entry__excerpt">

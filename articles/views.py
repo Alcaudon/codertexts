@@ -48,8 +48,10 @@ class HomeView(ListView):
         categorias = Category.objects.order_by('name')
         comentarios = Comment.objects.order_by('-pub_date')
         articulos = Article.objects.filter(status='finalizado').filter(pub_date__lte=datetime.now()).order_by(ordenarArticulos(self.request))
+        #artmeses = Article.objects.all.distinct('pub_date')
         context['numofcomments'] = contarComentarios(comentarios, articulos)
         context['categories'] = categorias
+        #context['meses'] = artmeses
         return context
 
 class ArticleDetailView(FormMixin, DetailView):
@@ -138,7 +140,7 @@ class LookingUpView(ListView, Lookup): #buscador que contiene las palabras que s
         queryset = Article.objects.filter(status='finalizado').filter(pub_date__lte=datetime.now()).filter(title__icontains=busqueda).order_by(ordenarArticulos(self.request))[:ARTICLES_LIMIT]
         return queryset
 
-    def get_context_data(self, *args, **kwargs):  # función para meter el número de comentarios en función de la lista e info de la categoría de la URL /<username>
+    def get_context_data(self, *args, **kwargs):
         context = super().get_context_data(*args, **kwargs)
         busqueda = self.request.GET.get('lookup')
         categorias = Category.objects.order_by('name')

@@ -1,5 +1,24 @@
 {%  extends "base.html" %}
 {% load i18n %}
+{% block title %} CoderTexts {% endblock %}
+{% block SEO %}
+      <meta name="description" content="Noticias de las últimas tecnologías.">
+      <link rel="canonical" href="http://www.bdeveloper.es{%  url 'look_up_page' %}?lookup={{ busqueda }}">
+      <meta name="keywords" content="Noticias, IT, Project, Web, Developer, Technology, HTML, js, css, python, node, angular">
+      <link rel="alternate" hreflang="es-default" href="http://www.bdeveloper.es{%  url 'look_up_page' %}?lookup={{ busqueda }}" />
+      <meta name="robots" content="index,follow">
+      <meta name="author" content="Eduardo Aboy, Luis Barriga, Christian Gallego, Javier Lindo, José Luis Pilo">
+      <meta name="twitter:card" content="Artículos de la búsqueda <{{ busqueda }}>" />
+      <meta name="twitter:site" content="@CoderTexts" />
+      <meta name="twitter:title" content="Por la tecnología de la búsqueda <{{ busqueda }}>" />
+      <meta name="twitter:description" content="Las últimas noticias tecnológicas de la búsqueda <{{ busqueda }}>" />
+      <meta name="twitter:url" content="http://www.bdeveloper.es{%  url 'look_up_page' %}?lookup={{ busqueda }}" />
+      <meta property="og:title" content="Por la tecnología de la búsqueda {{ busqueda }}" />
+      <meta property="og:description" content="Las últimas noticias tecnológicas de la búsqueda <{{ busqueda }}>" />
+      <meta property="og:url" content="http://www.bdeveloper.es{%  url 'look_up_page' %}?lookup={{ busqueda }}" />
+      <meta property="og:type" content="website" />
+      <meta property="og:site_name" content="CoderTexts" />
+{% endblock %}
 
 {% block content %}
     {% if lookup %}
