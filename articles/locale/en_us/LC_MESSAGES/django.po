@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-05-06 13:43+0200\n"
+"POT-Creation-Date: 2018-05-07 13:01+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,10 +17,167 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: .\articles\templates\base.html:32
+#: .\articles\templates\article_detail_page.html:30
+#: .\articles\templates\base.html:32 .\articles\templates\base.html:94
+#: .\articles\templates\category_list.html:28
+#: .\articles\templates\user_articles_list.html:29
 msgid "Inicio"
 msgstr "Start"
+
+#: .\articles\templates\article_detail_page.html:33
+#: .\articles\templates\user_articles_list.html:32
+msgid "Usuario"
+msgstr "User"
+
+#: .\articles\templates\article_detail_page.html:36
+msgid "Artículo"
+msgstr "Article"
+
+#: .\articles\templates\article_detail_page.html:59
+msgid "Categorías"
+msgstr "Categories"
+
+#: .\articles\templates\article_detail_page.html:103
+msgid "Comparte el artículo"
+msgstr "Share the article"
+
+#: .\articles\templates\article_detail_page.html:119
+msgid "Comentarios"
+msgstr "Comments"
+
+#: .\articles\templates\articles_list.html:33
+msgid "Comentario/s:"
+msgstr "Comment/s"
 
 #: .\articles\templates\base.html:41
 msgid "Buscar"
 msgstr "Search"
+
+#: .\articles\templates\base.html:46
+msgid "Área Privada"
+msgstr "Private Area"
+
+#: .\articles\templates\base.html:51
+msgid "Salir"
+msgstr "Exit"
+
+#: .\articles\templates\base.html:57
+msgid "Entrar"
+msgstr "Enter"
+
+#: .\articles\templates\base.html:62
+msgid "Unirse"
+msgstr "Join"
+
+#: .\articles\templates\base.html:92
+msgid "Mapa web"
+msgstr "Site map"
+
+#: .\articles\templates\base.html:103
+msgid "Hemeroteca"
+msgstr "Newspaper library"
+
+#: .\articles\templates\base.html:106
+msgid "Enero 2018"
+msgstr "January 2018"
+
+#: .\articles\templates\base.html:107
+msgid "Diciembre 2017"
+msgstr "December2017"
+
+#: .\articles\templates\base.html:108
+msgid "Noviembre 2017"
+msgstr "November 2017"
+
+#: .\articles\templates\base.html:109
+msgid "Octubre 2017"
+msgstr "October 2017"
+
+#: .\articles\templates\base.html:110
+msgid "Septiembre 2017"
+msgstr "September 2017"
+
+#: .\articles\templates\base.html:117
+msgid "Redes sociales"
+msgstr "Social networks"
+
+#: .\articles\templates\base.html:141
+msgid "Introduce los términos a buscar:"
+msgstr "Enter your search terms"
+
+#: .\articles\templates\base.html:146
+msgid "Cerrar"
+msgstr "Close"
+
+#: .\articles\templates\category_list.html:31
+msgid "Categoría"
+msgstr "Category"
+
+#: .\articles\templates\category_list.html:41
+msgid "Ordenar:"
+msgstr "Sort by:"
+
+#: .\articles\templates\category_list.html:42 .\articles\templates\home.html:35
+#: .\articles\templates\lookup_list.html:15
+#: .\articles\templates\user_articles_list.html:43
+msgid "Más antiguos: primeros"
+msgstr "Older: first"
+
+#: .\articles\templates\category_list.html:43 .\articles\templates\home.html:36
+#: .\articles\templates\lookup_list.html:16
+#: .\articles\templates\user_articles_list.html:44
+msgid "Más antiguos: últimos"
+msgstr "Oldest: last"
+
+#: .\articles\templates\comments.html:6
+msgid "4 Comentarios"
+msgstr "4 Comments"
+
+#: .\articles\templates\comments_list.html:20
+msgid "Responder"
+msgstr "Reply"
+
+#: .\articles\templates\home.html:30
+msgid "Últimos posts"
+msgstr "Latest posts"
+
+#: .\articles\templates\home.html:34 .\articles\templates\lookup_list.html:14
+#: .\articles\templates\user_articles_list.html:42
+msgid "Ordenar"
+msgstr "Sort by"
+
+#: .\articles\templates\home.html:47 .\articles\templates\home.html:50
+#: .\articles\templates\lookup_list.html:29
+#: .\articles\templates\lookup_list.html:32
+#: .\articles\templates\user_articles_list.html:57
+#: .\articles\templates\user_articles_list.html:60
+msgid "Anterior"
+msgstr "Previous"
+
+#: .\articles\templates\home.html:57 .\articles\templates\home.html:60
+#: .\articles\templates\lookup_list.html:39
+#: .\articles\templates\lookup_list.html:42
+#: .\articles\templates\user_articles_list.html:67
+#: .\articles\templates\user_articles_list.html:70
+msgid "Siguiente"
+msgstr "Next"
+
+#: .\articles\templates\lookup_list.html:10
+msgid "Artículos de tu búsqueda"
+msgstr "Articles from your search"
+
+#: .\articles\templates\lookup_list.html:51
+msgid "No existen artículos de tu búsqueda"
+msgstr "There are no articles from your search"
+
+#: .\articles\templates\new_comment.html:3
+msgid "Nuevo comentario"
+msgstr "New comment"
+
+#: .\articles\templates\new_comment.html:11
+msgid "Enviar"
+msgstr "Send"
+
+#: .\articles\templates\user_articles_list.html:38
+msgid "Artículos del usuario"
+msgstr "User Articles"

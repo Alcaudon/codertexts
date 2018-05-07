@@ -1,4 +1,5 @@
 {% load staticfiles%}
+{% load i18n %}
 {% for article in articles %}
 <article class="col-md-4">
     <div class="card">
@@ -29,7 +30,7 @@
                             {% if key == article.id %}
                                 {{ value }}
                             {% endif %}
-                        {% endfor %} Comentario/s
+                        {% endfor %} {% trans 'Comentario/s:' %}
                     </a>
                 </div>
                 <div class="entry__meta">

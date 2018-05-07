@@ -1,4 +1,5 @@
 {%  extends "base.html" %}
+{% load i18n %}
 
 {% block title %} CoderTexts {% endblock %}
 
@@ -26,13 +27,13 @@
         <div class="row">
             <div class="col-md-10">
                 <div>
-                    <h4 class="heading-title">Últimos posts</h4>
+                    <h4 class="heading-title">{% trans 'Últimos posts' %}</h4>
                 </div>
                 <form class="customized-select" method="POST">
                     <select id="order_list" onchange="changeOrder(this.value)">
-                        <option id="opt1" value="">Ordenar</option>
-                        <option id="opt2" value="antiguos">Más antiguos: primeros</option>
-                        <option id="opt3" value="modernos">Más antiguos: últimos</option>
+                        <option id="opt1" value="">{% trans 'Ordenar' %}</option>
+                        <option id="opt2" value="antiguos">{% trans 'Más antiguos: primeros' %}</option>
+                        <option id="opt3" value="modernos">{% trans 'Más antiguos: últimos' %}</option>
                     </select>
                 </form>
             </div>
@@ -43,20 +44,20 @@
         <div>
             {% if page_obj.has_previous %}
             <a href="{% url 'home_page' %}?page={{ page_obj.previous_page_number }}">
-                <span>&laquo; Previous</span>
+                <span>&laquo; {% trans 'Anterior' %}</span>
             </a>
             {% else %}
-            <span>&laquo; Previous</span>
+            <span>&laquo; {% trans 'Anterior' %}</span>
             {% endif %}
 
             <span> | </span>
 
                 {% if page_obj.has_next %}
                 <a href="{% url 'home_page' %}?page={{ page_obj.next_page_number }}">
-                    <span>Next &raquo;</span>
+                    <span>{% trans 'Siguiente' %} &raquo;</span>
                 </a>
                 {% else %}
-                <span>Next &raquo;</span>
+                <span>{% trans 'Siguiente' %} &raquo;</span>
                 {% endif %}
         </div>
     </div>
