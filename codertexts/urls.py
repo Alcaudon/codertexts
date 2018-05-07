@@ -5,11 +5,14 @@ from codertexts import settings
 from django.contrib.auth.views import password_reset_done, password_reset_confirm, password_reset_complete, LoginView
 from django.urls import path, include
 from articles.views import HomeView, ArticleDetailView, CategoryView, UserArticlesView, LookingUpView
-from users.api import UserCreateAPI, UserUpdateAPI, UserDeleteAPI, UserListAPI, Logout, RecuperarUsuarioAPI
-from articles.api import NewArticleAPI, GetAllArticlesAPI, GetAllArticlesByUserAPI, \
-    ActionArticleAPI, GetAllCategoriesAPI
+from users.api import RecuperarPasswordAPI, UserCreateAPI, Logout, UserUpdateAPI, UserDeleteAPI, UserListAPI, \
+    UserDetailAPI
+
+RecuperarPasswordAPI
+from articles.api import NewArticleAPI, GetAllArticlesAPI,  \
+    ActionArticleAPI, GetAllCategoriesAPI, ArticlesByUserAPI, OwnArticlesAPI
 from users.views import SignupView, logout, VerificarToken, ActualizarToken, ObtenerToken, password_reset, \
-    UploadAvatarAPI, GetAvatarAPI, DeleteAvatarAPI
+    UploadAvatarAPI, GetAvatarAPI, DeleteAvatarAPI, UploadImagenAPI, GetImagenAPI, DeleteImagenAPI
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -36,14 +39,16 @@ urlpatterns = [
     path('api/1.0/logout/', Logout.as_view(), name="api_logout_users"),
     path('api/1.0/updateUser/<int:pk>', UserUpdateAPI.as_view(), name="api_update_users"),
     path('api/1.0/deleteUser/<int:pk>', UserDeleteAPI.as_view(), name="api_delete_users"),
+    path('api/1.0/user/<int:pk>', UserDetailAPI.as_view(), name="api_user_detail"),
     path('api/1.0/user/', UserListAPI.as_view(), name="api_user_list"),
-    path('api/1.0/recuperarPassword/', RecuperarUsuarioAPI.as_view(), name="api_user_list"),
+    path('api/1.0/recuperarPassword/', RecuperarPasswordAPI.as_view(), name="api_recovery_user"),
 
 
     path('api/1.0/article/new/', NewArticleAPI.as_view(), name="api_new_article"),
     path('api/1.0/article/<int:pk>', ActionArticleAPI.as_view(), name="api_article_detail"),
     path('api/1.0/articles/all/', GetAllArticlesAPI.as_view(), name="api_articles_all"),
-    path('api/1.0/articles/user/<int:id_user>', GetAllArticlesByUserAPI.as_view(), name="api_user_article"),
+    path('api/1.0/articles/user/<int:id_user>', ArticlesByUserAPI.as_view(), name="api_user_articles"),
+    path('api/1.0/ownArticles/<int:id_user>', OwnArticlesAPI.as_view(), name="api_own_user_articlse"),
     path('api/1.0/article/delete/<int:pk>', ActionArticleAPI.as_view(), name="api_article_delete"),
     path('api/1.0/categories/all/', GetAllCategoriesAPI.as_view(), name="api_categories_all"),
 
@@ -54,10 +59,14 @@ urlpatterns = [
     url(r'^reset/done/$', password_reset_complete, name='password_reset_complete'),
 
     #  Rutas para la gestión de imágenes
+    #  Avatar de usuario
     path('api/1.0/subirAvatar/<str:id_user>', UploadAvatarAPI.as_view(), name="upload_avatar_api"),
     path('api/1.0/getAvatar/<str:id_user>', GetAvatarAPI.as_view(), name="get_avatar_api"),
-    path('api/1.0/deleteAvatar/<str:dir>/<str:name>', DeleteAvatarAPI.as_view(), name="delete_avatar_api"),
-
+    path('api/1.0/deleteAvatar/<str:dir>/<str:subdir>/<str:name>', DeleteAvatarAPI.as_view(), name="delete_avatar_api"),
+    #  Imagen para artículo
+    path('api/1.0/subirImagenPost/<str:id_post>', UploadImagenAPI.as_view(), name="upload_imagen_api"),
+    path('api/1.0/getImagen/<str:id_post>', GetImagenAPI.as_view(), name="get_imagen_api"),
+    path('api/1.0/deleteImagen/<str:dir>/<str:subdir>/<str:name>', DeleteImagenAPI.as_view(), name="delete_imagen_api"),
 ]
 
 if settings.DEBUG:

@@ -149,7 +149,7 @@ class UploadAvatarAPI(APIView):
         if request.FILES['image']:
             myfile = request.FILES['image']
             fs = FileSystemStorage()
-            filename = fs.save(id_user + '.jpg', myfile)
+            filename = fs.save(settings.MEDIA_ROOT + '/users/' + id_user + '.jpg', myfile)
             uploaded_file_url = fs.url(filename)
             return Response(data=uploaded_file_url, status=status.HTTP_200_OK)
         else:
@@ -158,15 +158,45 @@ class UploadAvatarAPI(APIView):
 
 class GetAvatarAPI(APIView):
     def get(self, request, id_user):
-        path = settings.MEDIA_ROOT+'/'+id_user+'.jpg'
+        path = settings.MEDIA_ROOT+'/users/'+id_user+'.jpg'
         if os.path.isfile(path):
-            return Response(data=['/media/'+id_user+'.jpg', ], status=status.HTTP_200_OK)
+            return Response(data=['/media/users/'+id_user+'.jpg', ], status=status.HTTP_200_OK)
         else:
             return Response(data=[], status=status.HTTP_200_OK)
 
+
 class DeleteAvatarAPI(APIView):
-    def get(self, request, dir, name):
-        path = dir + '/' + name
+    def get(self, request, dir, subdir, name):
+        path = dir + '/' + subdir + '/' + name
+        if os.path.isfile(path):
+            os.remove(path)
+        return Response(data=True, status=status.HTTP_200_OK)
+
+
+class UploadImagenAPI(APIView):
+    def post(self, request, id_post):
+        if request.FILES['image']:
+            myfile = request.FILES['image']
+            fs = FileSystemStorage()
+            filename = fs.save(settings.MEDIA_ROOT + '/posts/' + id_post + '.jpg', myfile)
+            uploaded_file_url = fs.url(filename)
+            return Response(data=uploaded_file_url, status=status.HTTP_200_OK)
+        else:
+            return HttpResponseBadRequest()
+
+
+class GetImagenAPI(APIView):
+    def get(self, request, id_post):
+        path = settings.MEDIA_ROOT+'/posts/'+id_post+'.jpg'
+        if os.path.isfile(path):
+            return Response(data=['/media/posts/' + id_post + '.jpg', ], status=status.HTTP_200_OK)
+        else:
+            return Response(data=[], status=status.HTTP_200_OK)
+
+
+class DeleteImagenAPI(APIView):
+    def get(self, request, dir, subdir, name):
+        path = dir + '/' + subdir + '/' + name
         if os.path.isfile(path):
             os.remove(path)
         return Response(data=True, status=status.HTTP_200_OK)

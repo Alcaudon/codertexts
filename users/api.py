@@ -8,23 +8,37 @@ from django.db.models import Q
 
 from users.authentication import TokenAuthentication
 from users.models import User
-from users.permissions import UserPermissions
+from users.permissions import UserPermissions, IsSuperUser
 from users.serializers import UserSerializer, RecuperarPasswordSerializer
-
 
 
 class UserListAPI(ListAPIView):
 
+    """Lista los usuarios del sistema"""
     serializer_class = UserSerializer
-    permission_classes = [UserPermissions]
+    permission_classes = [IsSuperUser]
+    authentication_classes = [TokenAuthentication]
 
     def get_queryset(self):
         id_user = self.request.user.id
         queryset = User.objects.filter(id=id_user)
         return queryset
 
-class UserCreateAPI(CreateAPIView):
 
+class UserDetailAPI(APIView):
+
+    """Devuelve los datos de un usuario del sistema"""
+    permission_classes = [UserPermissions]
+
+    def get(self, request, pk):
+        usuario = User.objects.filter(id=pk)
+        if usuario:
+            serializer = UserSerializer(usuario, many=True)
+            return Response(data=serializer.data, status=status.HTTP_200_OK, content_type="application/json")
+        return Response(data=False, status=status.HTTP_200_OK)
+
+class UserCreateAPI(CreateAPIView):
+    """Crear un usuario"""
     queryset = User.objects.all()
     serializer_class = UserSerializer
     permission_classes = [UserPermissions]
@@ -46,7 +60,7 @@ class UserDeleteAPI (DestroyAPIView):
     permission_classes = [UserPermissions]
 
 
-class RecuperarUsuarioAPI(APIView):
+class RecuperarPasswordAPI(APIView):
 
     def post(self, request):
         usuario = User.objects.filter(Q(username=request.data['user']) | Q(email=request.data['user']))
