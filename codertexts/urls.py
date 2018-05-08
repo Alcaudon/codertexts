@@ -37,7 +37,7 @@ urlpatterns = [
     path('api/1.0/createUser/', UserCreateAPI.as_view(), name="api_create_users"),
     path('api/1.0/logout/', Logout.as_view(), name="api_logout_users"),
     path('api/1.0/updateUser/<int:pk>', UserUpdateAPI.as_view(), name="api_update_users"),
-    path('api/1.0/deleteUser/<int:pk>', UserDeleteAPI.as_view(), name="api_delete_users"),
+    path('api/1.0/deleteUser/', UserDeleteAPI.as_view(), name="api_delete_users"),
     path('api/1.0/user/', UserDetailAPI.as_view(), name="api_user_detail"),
     path('api/1.0/recuperarPassword/', RecuperarPasswordAPI.as_view(), name="api_recovery_user"),
 

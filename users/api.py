@@ -6,16 +6,16 @@ from rest_framework.views import APIView
 from django.contrib.auth import logout as django_logout
 from django.db.models import Q
 
-from users.authentication import TokenAuthentication
+#from users.authentication import TokenAuthentication
 from users.models import User
 from users.permissions import UserPermissions
 from users.serializers import UserSerializer, RecuperarPasswordSerializer
 
 
 class UserDetailAPI(APIView):
-
     """Devuelve los datos de un usuario del sistema"""
     permission_classes = [UserPermissions]
+    serializer_class = UserSerializer
 
     def get(self, request):
         id_user = self.request.user.id
@@ -33,19 +33,21 @@ class UserCreateAPI(CreateAPIView):
 
 
 class UserUpdateAPI (UpdateAPIView):
-
     queryset = User.objects.all()
     serializer_class = UserSerializer
-
     permission_classes = [UserPermissions]
 
 
 class UserDeleteAPI (DestroyAPIView):
 
-    queryset = User.objects.all()
     serializer_class = UserSerializer
-    authentication_classes = [TokenAuthentication]
     permission_classes = [UserPermissions]
+
+    def destroy(self, request):
+        id_user = self.request.user.id
+        instance = User.objects.filter(id=id_user)
+        self.perform_destroy(instance)
+        return Response(status=status.HTTP_204_NO_CONTENT)
 
 
 class RecuperarPasswordAPI(APIView):
