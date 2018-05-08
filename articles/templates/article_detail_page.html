@@ -66,12 +66,12 @@
         </div>
         <div class="row">
           <div class="col">
-              {% if article.image %}
-              <img style="float:left; padding-right: 20px" src="{{ article.image }}" alt="">
-              {% elif article.video %}
-              <video width="320" height="240" controls>
-                  <source src="{{ article.video }}">
-              </video>
+              {% if article.video %}
+                  <video width="320" height="240" controls>
+                      <source src="{{ article.video }}">
+                  </video>
+              {% else %}
+                   <img style="float:left; padding-right: 20px" src="{{ MEDIA_URL }}posts/{{article.id}}.jpg" alt="{{ article.name }}">
               {% endif %}
             <p class="lead">
                 {% autoescape off %}
@@ -82,7 +82,7 @@
           <!--Barra lateral del autor -->
           <div class="col-md-2 s-content__author text-center">
             <div class="">
-              <img src="{{ article.id_user.image }}" alt="">
+              <img style="float:left; padding-right: 20px" src="{{ MEDIA_URL }}users/{{article.id_user.id}}.jpg" alt="{{ article.id_user }}">
             </div>
             <div class="s-content__author-about">
               <h4 class="s-content__author-name">
