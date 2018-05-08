@@ -6,8 +6,6 @@ from django.contrib.auth.views import password_reset_done, password_reset_confir
 from django.urls import path, include
 from articles.views import HomeView, ArticleDetailView, CategoryView, UserArticlesView, LookingUpView
 from users.api import RecuperarPasswordAPI, UserCreateAPI, Logout, UserUpdateAPI, UserDeleteAPI, UserDetailAPI
-
-RecuperarPasswordAPI
 from articles.api import NewArticleAPI, GetAllArticlesAPI,  \
     ActionArticleAPI, GetAllCategoriesAPI, ArticlesByUserAPI, OwnArticlesAPI
 from users.views import SignupView, logout, VerificarToken, ActualizarToken, ObtenerToken, password_reset, \
@@ -31,7 +29,7 @@ urlpatterns = [
     path('i18n/', include('django.conf.urls.i18n')),
 
     # Ajax URLs
-    #path('ajax/addfavorite', AddFavorite, name = "add_favorite"),
+    # path('ajax/addfavorite', AddFavorite, name = "add_favorite"),
 
     # API URLs
     path('api/1.0/createUser/', UserCreateAPI.as_view(), name="api_create_users"),
@@ -56,16 +54,16 @@ urlpatterns = [
     url(r'^reset/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,20})/$', password_reset_confirm, name='password_reset_confirm'),
     url(r'^reset/done/$', password_reset_complete, name='password_reset_complete'),
 
-    #  Rutas para la gestión de imágenes
-    #  Avatar de usuario
+    # Rutas para la gestión de imágenes
+    # Avatar de usuario
     path('api/1.0/subirAvatar/<str:id_user>', UploadAvatarAPI.as_view(), name="upload_avatar_api"),
     path('api/1.0/getAvatar/<str:id_user>', GetAvatarAPI.as_view(), name="get_avatar_api"),
     path('api/1.0/deleteAvatar/<str:dir>/<str:subdir>/<str:name>', DeleteAvatarAPI.as_view(), name="delete_avatar_api"),
-    #  Imagen para artículo
-    path('api/1.0/subirImagenPost/<str:id_post>', UploadImagenAPI.as_view(), name="upload_imagen_api"),
+    # Imagen para artículo
+    path('api/1.0/subirImagen/<str:id_post>', UploadImagenAPI.as_view(), name="upload_imagen_api"),
     path('api/1.0/getImagen/<str:id_post>', GetImagenAPI.as_view(), name="get_imagen_api"),
     path('api/1.0/deleteImagen/<str:dir>/<str:subdir>/<str:name>', DeleteImagenAPI.as_view(), name="delete_imagen_api"),
 ]
 
 if settings.DEBUG:
-  urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

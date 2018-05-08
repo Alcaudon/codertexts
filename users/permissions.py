@@ -17,7 +17,7 @@ class UserPermissions(BasePermission):
             return True
 
         # Si queremos actualizar o borrar los datos de un usuario debemos ser superuser o nosotros mismos
-        if (request.method == 'PUT' or request.method == 'DELETE') and request.user.is_authenticated:
+        if (request.method == 'PUT' or request.method == 'PATCH' or request.method == 'DELETE') and request.user.is_authenticated:
             return True
 
         # Para cualquier otro método HTTP devolvemos False
