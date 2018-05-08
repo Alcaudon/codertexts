@@ -194,11 +194,11 @@ LOCALE_PATHS = (
 
 # Limitación de los artículos a mostrar
 
-ARTICLES_LIMIT = 10
+ARTICLES_LIMIT = 30
 
 # Limitación paginación de los listados
 
-PAGINATION_LIMIT = 2
+PAGINATION_LIMIT = 6
 
 # Configuración correo electrónico
 

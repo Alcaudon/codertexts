@@ -35,8 +35,8 @@ msgstr "Enter"
 
 #: .\users\templates\signup_form.html:9
 msgid "Formulario de registro"
-msgstr "Registration form"
+msgstr "Sign Up form"
 
 #: .\users\templates\signup_form.html:21
 msgid "Alta"
-msgstr "Registration"
+msgstr "Sign Up"
