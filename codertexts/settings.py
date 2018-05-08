@@ -76,6 +76,7 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
                 'django.template.context_processors.request',
+                'django.template.context_processors.media',
             ],
         },
     },
@@ -141,7 +142,7 @@ STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 STATICFILES_DIRS = (
-    os.path.join(BASE_DIR, 'articles/static/images'),
+    os.path.join(BASE_DIR, 'media'),
 )
 
 # Mofification to extend user model
@@ -192,13 +193,13 @@ CORS_ORIGIN_WHITELIST = (
 
 # Limitación de los artículos a mostrar
 
-ARTICLES_LIMIT = 10
+ARTICLES_LIMIT = 30
 
 AUTH_USER_MODEL = 'users.User'
 
 # Limitación paginación de los listados
 
-PAGINATION_LIMIT = 2
+PAGINATION_LIMIT = 6
 
 
 # Configuración correo electrónico

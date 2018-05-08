@@ -4,19 +4,19 @@
 {% block title %} {{ article.title }} {% endblock %}
 {% block SEO %}
       <meta name="description" content="{{ article.text|truncatewords:10 }}">
-      <link rel="canonical" href="http://bdeveloper.es{%  url 'article_detail_page' username=article.id_user.username title=article.slug %}">
+      <link rel="canonical" href="http://www.bdeveloper.es{%  url 'article_detail_page' username=article.id_user.username title=article.slug %}">
       <meta name="keywords" content="Noticias, IT, Project, Web, Developer, Technology, HTML, js, css, python, node, angular">
-      <link rel="alternate" hreflang="x-default" href="http://bdeveloper.es{%  url 'article_detail_page' username=article.id_user.username title=article.slug %}" />
+      <link rel="alternate" hreflang="es-default" href="http://bdeveloper.es{%  url 'article_detail_page' username=article.id_user.username title=article.slug %}" />
       <meta name="robots" content="index,follow">
       <meta name="author" content="{{ article.id_user.first_name }} {{ article.id_user.last_name }}">
       <meta name="twitter:card" content="Detalle artículo" />
       <meta name="twitter:site" content="@CoderTexts" />
       <meta name="twitter:title" content="{{ article.title }}" />
       <meta name="twitter:description" content="{{ article.title }}. {{ article.text|truncatewords:10 }}" />
-      <meta name="twitter:url" content="http://bdeveloper.es{%  url 'article_detail_page' username=article.id_user.username title=article.slug %}" />
+      <meta name="twitter:url" content="http://www.bdeveloper.es{%  url 'article_detail_page' username=article.id_user.username title=article.slug %}" />
       <meta property="og:title" content="Por la tecnología" />
       <meta property="og:description" content="{{ article.title }}. {{ article.text|truncatewords:10 }}" />
-      <meta property="og:url" content="http://bdeveloper.es{%  url 'article_detail_page' username=article.id_user.username title=article.slug %}" />
+      <meta property="og:url" content="http://www.bdeveloper.es{%  url 'article_detail_page' username=article.id_user.username title=article.slug %}" />
       <meta property="og:type" content="website" />
       <meta property="og:site_name" content="CoderTexts" />
 {% endblock %}
@@ -52,7 +52,6 @@
                   <span id="favorito" class="botonEstrella">
                     <a href="#"  alt="Agregar a favoritos" ><i class="fa fa-star"></i></a>
                   </span>
-
             </div>
             <div>
               <p class="s-content__tags">
@@ -67,13 +66,23 @@
         </div>
         <div class="row">
           <div class="col">
-            <img style="float:left; padding-right: 20px" src="{% static "images/terrier.jpg" %}" srcset="{% static "images/terrier.jpg 1x, images/terrier.png 2x" %}" alt="">
-            <p class="lead">{{ article.text }}</p>
+              {% if article.video %}
+                  <video width="320" height="240" controls>
+                      <source src="{{ article.video }}">
+                  </video>
+              {% else %}
+                   <img style="float:left; padding-right: 20px" src="{{ MEDIA_URL }}posts/{{article.id}}.jpg" alt="{{ article.name }}">
+              {% endif %}
+            <p class="lead">
+                {% autoescape off %}
+                    {{ article.text }}
+                {% endautoescape %}
+            </p>
           </div>
           <!--Barra lateral del autor -->
           <div class="col-md-2 s-content__author text-center">
             <div class="">
-              <img src="./images/user-03.jpg" alt="">
+              <img style="float:left; padding-right: 20px" src="{{ MEDIA_URL }}users/{{article.id_user.id}}.jpg" alt="{{ article.id_user }}">
             </div>
             <div class="s-content__author-about">
               <h4 class="s-content__author-name">
@@ -83,7 +92,9 @@
                 </span>
               </h4>
               <p>
-                  {{ article.id_user.about_me }}
+                  {% autoescape off %}
+                    {{ article.id_user.about_me }}
+                  {% endautoescape %}
               </p>
 
               <ul class="s-content__author-social">
