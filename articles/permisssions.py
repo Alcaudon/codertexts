@@ -9,7 +9,7 @@ class ArticlePermissions(BasePermission):
             return True
 
         #  Con Post solo pueden conectarse los usuarios autenticados
-        if request.method == 'POST' and request.user.is_authenticated:
+        if request.method == 'POST' and request.user.is_authenticated and request.user.id == request.data['id_user']:
             return True
 
         # Si queremos actualizar o borrar los datos de un artículo debemos ser superuser o nosotros mismos
