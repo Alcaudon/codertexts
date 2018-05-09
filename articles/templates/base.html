@@ -12,6 +12,7 @@
       <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
       <link rel="stylesheet" href="{% static 'css/custom.css' %}">
       <link rel="stylesheet" href="{% static 'css/font-awesome/css/font-awesome.min.css' %}">
+      <link rel="stylesheet" href="https://cdn.quilljs.com/1.2.2/quill.snow.css">
   </head>
   <body>
 
@@ -52,7 +53,7 @@
                 </div>
             </a>
         {% else %}
-            <a href="http://www.bdeveloper.es/private">
+            <a href="{%  url "login_page" %}">
                 <div class="texto-blanco">
                     <i class="fa fa-user"></i>{% trans 'Entrar' %}
                 </div>

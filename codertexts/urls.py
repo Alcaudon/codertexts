@@ -23,6 +23,7 @@ urlpatterns = [
     path('articles/<str:username>/<slug:title>', ArticleDetailView.as_view(), name="article_detail_page"),
     path('articles/<str:username>/', UserArticlesView.as_view(), name="user_articles_page"),
     path('login/', LoginView.as_view(), name="login_page"),
+    path('accounts/profile/', HomeView.as_view(), name="home_page"),
     path('logout/', logout, name="logout_page"),
     path('signup/', SignupView.as_view(), name="signup_page"),
     path('', HomeView.as_view(), name="home_page"),

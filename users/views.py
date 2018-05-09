@@ -47,7 +47,7 @@ class LoginUserView(APIView):
             return Response(
               {'error': 'Invalid credentials', 'status': 'failed'}
             )
-
+        return render(request, "registration/login.html", {'form': form})
 
 class SignupView(View):
 
